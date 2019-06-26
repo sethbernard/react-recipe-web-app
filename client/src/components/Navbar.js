@@ -11,40 +11,38 @@ class Navbar extends Component {
     const { activeItem } = this.state;
 
     return (
-      <div>
-        <Menu pointing secondary>
+      <Menu pointing secondary>
+        <Menu.Item
+          name="home"
+          active={activeItem === 'home'}
+          onClick={this.handleItemClick}
+          as={Link}
+          to="/"
+        />
+        <Menu.Item
+          name="saved-recipes"
+          active={activeItem === 'saved-recipes'}
+          onClick={this.handleItemClick}
+          as={Link}
+          to="/saved-recipes"
+        />
+        <Menu.Menu position="right">
           <Menu.Item
-            name="home"
-            active={activeItem === 'home'}
+            name="login"
+            active={activeItem === 'login'}
             onClick={this.handleItemClick}
             as={Link}
-            to="/"
+            to="/login"
           />
           <Menu.Item
-            name="saved-recipes"
-            active={activeItem === 'saved-recipes'}
+            name="logout"
+            active={activeItem === 'logout'}
             onClick={this.handleItemClick}
             as={Link}
-            to="/saved-recipes"
+            to="/logout"
           />
-          <Menu.Menu position="right">
-            <Menu.Item
-              name="login"
-              active={activeItem === 'login'}
-              onClick={this.handleItemClick}
-              as={Link}
-              to="/login"
-            />
-            <Menu.Item
-              name="logout"
-              active={activeItem === 'logout'}
-              onClick={this.handleItemClick}
-              as={Link}
-              to="/logout"
-            />
-          </Menu.Menu>
-        </Menu>
-      </div>
+        </Menu.Menu>
+      </Menu>
     );
   }
 }

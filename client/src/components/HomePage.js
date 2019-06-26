@@ -1,11 +1,30 @@
-import React from 'react';
+import React, { Component } from 'react';
+import RecipeSearch from './RecipeSearch';
 
-const HomePage = () => {
-  return (
-    <div>
-      <h1>Hello, from the Home page!</h1>
-    </div>
-  );
-};
+class HomePage extends Component {
+  state = {
+    recipeSearchTerm: ''
+  };
+
+  handleChange = e => {
+    this.setState({ recipeSearchTerm: e.target.value });
+    console.log(this.state.recipeSearchTerm);
+  };
+
+  handleSubmit = () => {
+    console.log('You pressed the recipe search button!');
+  };
+
+  render() {
+    return (
+      <div>
+        <RecipeSearch
+          onChange={this.handleChange}
+          onSubmit={this.handleSubmit}
+        />
+      </div>
+    );
+  }
+}
 
 export default HomePage;
