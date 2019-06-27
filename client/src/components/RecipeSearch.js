@@ -9,7 +9,7 @@ const RecipeSearch = ({ onChange, onSubmit }) => {
           <Form>
             <Form.Field>
               <label>What do you want to eat?</label>
-              <input placeholder="Ex: Mac and Cheese" onChange={onChange} />
+              <input placeholder="Ex: Burrito" onChange={onChange} />
             </Form.Field>
             <Button type="submit" onClick={onSubmit}>
               Submit
