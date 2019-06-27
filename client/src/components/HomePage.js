@@ -1,34 +1,31 @@
 import React, { Component } from 'react';
 import RecipeSearch from './RecipeSearch';
+import RecipeCards from './RecipeCards';
 import { PATH, APP_ID, API_KEY } from '../utils/edamam-api-info';
 import axios from 'axios';
 
 class HomePage extends Component {
   state = {
-    recipeSearchTerm: 'beef',
+    recipeSearchTerm: 'buffalo+chicken',
     data: [],
     error: null
   };
 
-  componentDidMount() {
-    // this.getData();
-  }
+  // componentDidMount() {
+  //   this.getData();
+  // }
 
   getData = async () => {
     try {
       const { recipeSearchTerm } = this.state;
       const response = await axios.get(
-        `${PATH}?q=${recipeSearchTerm}&app_id=${APP_ID}&app_key=${API_KEY}`
+        `${PATH}?q=${recipeSearchTerm}&app_id=${APP_ID}&app_key=${API_KEY}&to=12`
       );
-
       const data = response.data.hits;
-
       await this.setState(prevState => ({
         ...prevState,
         data
       }));
-
-      await console.log(this.state.data);
     } catch (error) {
       this.setState({ error });
     }
@@ -50,6 +47,7 @@ class HomePage extends Component {
           onChange={this.handleChange}
           onSubmit={this.handleSubmit}
         />
+        <RecipeCards data={this.state.data} />
       </div>
     );
   }
