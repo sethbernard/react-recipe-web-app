@@ -1,11 +1,18 @@
 import React from 'react';
-import { Card, Grid, Icon } from 'semantic-ui-react';
+import { Card } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 
-const RecipeCard = ({ image, header }) => {
+const extra = <Link to="/recipe">View Recipe</Link>;
+
+const RecipeCard = ({ image, header, meta, description }) => {
   return (
-    <Grid.Column>
-      <Card image={image} header={header} raised />
-    </Grid.Column>
+    <Card
+      image={image}
+      header={header}
+      meta={meta}
+      // description={description}
+      extra={extra}
+    />
   );
 };
 
