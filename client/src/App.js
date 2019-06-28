@@ -7,6 +7,7 @@ import HomePage from './components/HomePage';
 import SavedRecipesPage from './components/SavedRecipesPage';
 import LoginPage from './components/LoginPage';
 import LogoutPage from './components/LogoutPage';
+import RecipePage from './components/RecipePage';
 
 class App extends Component {
   render() {
@@ -18,6 +19,7 @@ class App extends Component {
           <Route path="/saved-recipes" component={SavedRecipesPage} />
           <Route path="/login" component={LoginPage} />
           <Route path="/logout" component={LogoutPage} />
+          <Route path="/recipe" component={RecipePage} />
         </Switch>
       </BrowserRouter>
     );

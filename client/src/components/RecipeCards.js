@@ -7,11 +7,16 @@ const RecipeCards = ({ data }) => {
     <Grid columns={3} stackable centered container>
       {data.map((card, index) => {
         return (
-          <Grid.Column width={5}>
+          <Grid.Column key={index} width={5}>
             <RecipeCard
-              key={index}
               image={card.recipe.image}
               header={card.recipe.label}
+              meta={card.recipe.source}
+              //   description={
+              //     card.recipe.totalTime !== 0
+              //       ? ` ${card.recipe.totalTime} minutes`
+              //       : ''
+              //   }
             />
           </Grid.Column>
         );
