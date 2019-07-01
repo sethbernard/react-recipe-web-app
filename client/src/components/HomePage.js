@@ -7,7 +7,7 @@ import axios from 'axios';
 class HomePage extends Component {
   state = {
     recipeSearchTerm: 'buffalo+chicken',
-    data: [],
+    recipes: [],
     error: null
   };
 
@@ -21,10 +21,10 @@ class HomePage extends Component {
       const response = await axios.get(
         `${PATH}?q=${recipeSearchTerm}&app_id=${APP_ID}&app_key=${API_KEY}&to=12`
       );
-      const data = response.data.hits;
+      const recipes = response.data.hits;
       await this.setState(prevState => ({
         ...prevState,
-        data
+        recipes
       }));
     } catch (error) {
       this.setState({ error });
@@ -47,7 +47,7 @@ class HomePage extends Component {
           onChange={this.handleChange}
           onSubmit={this.handleSubmit}
         />
-        <RecipeCards data={this.state.data} />
+        <RecipeCards recipes={this.state.recipes} />
       </div>
     );
   }

@@ -19,7 +19,7 @@ class App extends Component {
           <Route path="/saved-recipes" component={SavedRecipesPage} />
           <Route path="/login" component={LoginPage} />
           <Route path="/logout" component={LogoutPage} />
-          <Route path="/recipe" component={RecipePage} />
+          <Route path="/recipe/:id" component={RecipePage} />
         </Switch>
       </BrowserRouter>
     );
