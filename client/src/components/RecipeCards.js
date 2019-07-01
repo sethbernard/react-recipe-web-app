@@ -7,7 +7,21 @@ const RecipeCards = ({ recipes }) => {
   return (
     <Grid columns={3} stackable centered container>
       {recipes.map((card, index) => {
-        const uri = card.recipe.uri;
+        const {
+          label,
+          image,
+          source,
+          uri,
+          url,
+          servings,
+          dietLabels,
+          ingredients,
+          calories,
+          totalTime,
+          healthLabels,
+          cautions
+        } = card.recipe;
+
         const id = uri.replace(
           'http://www.edamam.com/ontologies/edamam.owl#recipe_', // Make custom ID
           ''
@@ -15,26 +29,26 @@ const RecipeCards = ({ recipes }) => {
         return (
           <Grid.Column key={index} width={5}>
             <RecipeCard
-              image={card.recipe.image}
-              header={card.recipe.label}
-              meta={card.recipe.source}
+              image={image}
+              header={label}
+              meta={source}
               id={id}
               link={
                 <Link
                   to={{
                     pathname: `/recipe/${id}`,
                     state: {
-                      label: card.recipe.label, // Find a way to destructure card.recipe
-                      image: card.recipe.image,
-                      source: card.recipe.source,
-                      url: card.recipe.url,
-                      servings: card.recipe.yield,
-                      dietLabels: card.recipe.dietLabels,
-                      ingredients: card.recipe.ingredientLines,
-                      calories: card.recipe.calories,
-                      totalTime: card.recipe.totalTime,
-                      healthLabels: card.recipe.healthLabels,
-                      cautions: card.recipe.cautions
+                      label,
+                      image,
+                      source,
+                      url,
+                      servings,
+                      dietLabels,
+                      ingredients,
+                      calories,
+                      totalTime,
+                      healthLabels,
+                      cautions
                     }
                   }}
                 >
