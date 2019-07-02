@@ -14,7 +14,7 @@ const RecipeCards = ({ recipes }) => {
           uri,
           url,
           dietLabels,
-          ingredients,
+          ingredientLines,
           calories,
           totalTime,
           healthLabels,
@@ -43,7 +43,7 @@ const RecipeCards = ({ recipes }) => {
                       url,
                       servings: card.recipe.yield, // had to use servings as a key because yield is a reserved keyword
                       dietLabels,
-                      ingredients,
+                      ingredientLines,
                       calories,
                       totalTime,
                       healthLabels,
