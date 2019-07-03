@@ -8,6 +8,7 @@ import {
   List,
   Label
 } from 'semantic-ui-react';
+import Footer from './Footer';
 
 const RecipePage = props => {
   console.log(props);
@@ -51,7 +52,7 @@ const RecipePage = props => {
           </Header>
           {healthLabels.map(healthLabel => {
             return (
-              <Label size="large" color="green">
+              <Label size="large" color="green" style={{ marginTop: '1rem' }}>
                 {healthLabel}
               </Label>
             );
@@ -105,7 +106,7 @@ const RecipePage = props => {
 
         <div style={{ marginTop: '4rem', fontSize: '1.2rem' }}>
           View full recipe with directions
-          <a href={url} target="_blank">
+          <a href={url} target="_blank" rel="noopener noreferrer">
             {' '}
             here
           </a>

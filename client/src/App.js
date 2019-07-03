@@ -8,20 +8,24 @@ import SavedRecipesPage from './components/SavedRecipesPage';
 import LoginPage from './components/LoginPage';
 import LogoutPage from './components/LogoutPage';
 import RecipePage from './components/RecipePage';
+import Footer from './components/Footer';
 
 class App extends Component {
   render() {
     return (
-      <BrowserRouter>
-        <Navbar />
-        <Switch>
-          <Route exact path="/" component={HomePage} />
-          <Route path="/saved-recipes" component={SavedRecipesPage} />
-          <Route path="/login" component={LoginPage} />
-          <Route path="/logout" component={LogoutPage} />
-          <Route path="/recipe/:id" component={RecipePage} />
-        </Switch>
-      </BrowserRouter>
+      <div>
+        <BrowserRouter>
+          <Navbar />
+          <Switch>
+            <Route exact path="/" component={HomePage} />
+            <Route path="/saved-recipes" component={SavedRecipesPage} />
+            <Route path="/login" component={LoginPage} />
+            <Route path="/logout" component={LogoutPage} />
+            <Route path="/recipe/:id" component={RecipePage} />
+          </Switch>
+        </BrowserRouter>
+        <Footer />
+      </div>
     );
   }
 }
