@@ -4,10 +4,8 @@ const Footer = () => {
   return (
     <footer
       style={{
-        position: 'fixed',
-        width: '100vw',
-        bottom: 0,
-        margin: '0em',
+        flexShrink: 0,
+        marginTop: '4rem',
         padding: '1rem',
         borderTop: '2px solid rgba(34,36,38,.15)',
         textAlign: 'center'

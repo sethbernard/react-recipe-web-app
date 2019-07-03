@@ -11,9 +11,9 @@ class HomePage extends Component {
     error: null
   };
 
-  // componentDidMount() {
-  //   this.getData();
-  // }
+  componentDidMount() {
+    this.getData();
+  }
 
   getData = async () => {
     try {
