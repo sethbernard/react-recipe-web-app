@@ -2,7 +2,7 @@ import React from 'react';
 
 const Footer = () => {
   return (
-    <div
+    <footer
       style={{
         position: 'fixed',
         width: '100vw',
@@ -25,7 +25,7 @@ const Footer = () => {
         </a>
       </p>
       <div id="edamam-badge" data-color="white" />
-    </div>
+    </footer>
   );
 };
 
