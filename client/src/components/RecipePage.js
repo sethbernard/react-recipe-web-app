@@ -8,10 +8,10 @@ import {
   List,
   Label
 } from 'semantic-ui-react';
-import Footer from './Footer';
 
 const RecipePage = props => {
   console.log(props);
+
   const {
     label,
     totalTime,
@@ -24,6 +24,7 @@ const RecipePage = props => {
     cautions,
     url
   } = props.location.state;
+
   return (
     <Grid columns={2} stackable container>
       <Grid.Column size={12}>
@@ -50,9 +51,14 @@ const RecipePage = props => {
           <Header as="h3" style={{ marginTop: '3rem' }}>
             Health Labels
           </Header>
-          {healthLabels.map(healthLabel => {
+          {healthLabels.map((healthLabel, i) => {
             return (
-              <Label size="large" color="green" style={{ marginTop: '1rem' }}>
+              <Label
+                key={i}
+                size="large"
+                color="green"
+                style={{ marginTop: '1rem' }}
+              >
                 {healthLabel}
               </Label>
             );
@@ -70,9 +76,9 @@ const RecipePage = props => {
         </Header>
         <Segment raised>
           <List bulleted>
-            {ingredientLines.map((step, index) => {
+            {ingredientLines.map((step, i) => {
               return (
-                <List.Item key={index} style={{ marginBottom: '0.5rem' }}>
+                <List.Item key={i} style={{ marginBottom: '0.5rem' }}>
                   {step}
                 </List.Item>
               );
@@ -84,20 +90,26 @@ const RecipePage = props => {
       <Grid.Column size={4} textAlign="center" style={{ marginTop: '8rem' }}>
         <Segment raised>
           <Header as="h3">Diet Labels</Header>
-          {dietLabels.map(dietLabel => {
-            return (
-              <Label size="large" color="blue">
-                {dietLabel}
-              </Label>
-            );
-          })}
+          {dietLabels && dietLabels.length ? (
+            dietLabels.map((dietLabel, i) => {
+              return (
+                <Label key={i} size="large" color="blue">
+                  {dietLabel}
+                </Label>
+              );
+            })
+          ) : (
+            <Label size="large" color="blue">
+              None
+            </Label>
+          )}
         </Segment>
 
         <Segment style={{ marginTop: '3rem' }} raised>
           <Header as="h3">Cautions</Header>
-          {cautions.map(caution => {
+          {cautions.map((caution, i) => {
             return (
-              <Label size="large" color="red">
+              <Label key={i} size="large" color="red">
                 {caution}
               </Label>
             );
