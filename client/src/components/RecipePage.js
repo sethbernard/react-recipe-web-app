@@ -50,7 +50,9 @@ const RecipePage = props => {
         </Segment.Group>
 
         {/* Health Labels */}
-        <Segment style={{ textAlign: 'center', marginTop: '3rem' }}>
+        <Segment
+          style={{ textAlign: 'center', marginTop: '3rem', padding: '2rem' }}
+        >
           <Header as="h3">Health Labels</Header>
           {healthLabels.map((healthLabel, i) => {
             return (
@@ -63,7 +65,7 @@ const RecipePage = props => {
       </Grid.Column>
 
       <Grid.Column size={4} textAlign="center">
-        <Image src={image} size="medium" spaced="left" rounded />
+        <Image src={image} size="medium" spaced="left" rounded raised />
       </Grid.Column>
 
       {/* Ingredients List */}
@@ -117,7 +119,7 @@ const RecipePage = props => {
         </Segment>
 
         {/* Recipe External Link */}
-        <Segment style={{ marginTop: '4rem', fontSize: '1.2rem' }} raised>
+        <Segment style={{ marginTop: '3rem', fontSize: '1.2rem' }} raised>
           View full recipe with directions
           <a href={url} target="_blank" rel="noopener noreferrer">
             {' '}
