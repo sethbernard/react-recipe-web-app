@@ -6,7 +6,8 @@ import {
   Icon,
   Image,
   List,
-  Label
+  Label,
+  Divider
 } from 'semantic-ui-react';
 
 const RecipePage = props => {
@@ -32,6 +33,7 @@ const RecipePage = props => {
           {label}
         </Header>
 
+        {/* Time, Servings, Calories */}
         <Segment.Group horizontal raised>
           <Segment>
             <Icon name="clock" />
@@ -47,38 +49,33 @@ const RecipePage = props => {
           </Segment>
         </Segment.Group>
 
-        <div style={{ textAlign: 'center' }}>
-          <Header as="h3" style={{ marginTop: '3rem' }}>
-            Health Labels
-          </Header>
+        {/* Health Labels */}
+        <Segment style={{ textAlign: 'center', marginTop: '3rem' }}>
+          <Header as="h3">Health Labels</Header>
           {healthLabels.map((healthLabel, i) => {
             return (
-              <Label
-                key={i}
-                size="large"
-                color="green"
-                style={{ marginTop: '1rem' }}
-              >
+              <Label key={i} size="large" color="green">
                 {healthLabel}
               </Label>
             );
           })}
-        </div>
+        </Segment>
       </Grid.Column>
 
       <Grid.Column size={4} textAlign="center">
         <Image src={image} size="medium" spaced="left" rounded />
       </Grid.Column>
 
+      {/* Ingredients List */}
       <Grid.Column>
         <Header as="h3" textAlign="center">
           Ingredients List
         </Header>
-        <Segment raised>
+        <Segment raised style={{ height: '100%', padding: '2rem' }}>
           <List bulleted>
             {ingredientLines.map((step, i) => {
               return (
-                <List.Item key={i} style={{ marginBottom: '0.5rem' }}>
+                <List.Item key={i} style={{ marginBottom: '1rem' }}>
                   {step}
                 </List.Item>
               );
@@ -87,8 +84,9 @@ const RecipePage = props => {
         </Segment>
       </Grid.Column>
 
-      <Grid.Column size={4} textAlign="center" style={{ marginTop: '8rem' }}>
-        <Segment raised>
+      {/* Diet Labels */}
+      <Grid.Column size={4} textAlign="center" style={{ marginTop: '2.5rem' }}>
+        <Segment raised style={{ padding: '2rem' }}>
           <Header as="h3">Diet Labels</Header>
           {dietLabels && dietLabels.length ? (
             dietLabels.map((dietLabel, i) => {
@@ -103,26 +101,29 @@ const RecipePage = props => {
               None
             </Label>
           )}
+          <Divider section />
+
+          {/* Caution Labels */}
+          <div style={{ marginTop: '1rem' }} raised>
+            <Header as="h3">Cautions</Header>
+            {cautions.map((caution, i) => {
+              return (
+                <Label key={i} size="large" color="red">
+                  {caution}
+                </Label>
+              );
+            })}
+          </div>
         </Segment>
 
-        <Segment style={{ marginTop: '3rem' }} raised>
-          <Header as="h3">Cautions</Header>
-          {cautions.map((caution, i) => {
-            return (
-              <Label key={i} size="large" color="red">
-                {caution}
-              </Label>
-            );
-          })}
-        </Segment>
-
-        <div style={{ marginTop: '4rem', fontSize: '1.2rem' }}>
+        {/* Recipe External Link */}
+        <Segment style={{ marginTop: '4rem', fontSize: '1.2rem' }} raised>
           View full recipe with directions
           <a href={url} target="_blank" rel="noopener noreferrer">
             {' '}
             here
           </a>
-        </div>
+        </Segment>
       </Grid.Column>
     </Grid>
   );

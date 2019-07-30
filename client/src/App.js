@@ -8,7 +8,6 @@ import SavedRecipesPage from './components/SavedRecipesPage';
 import LoginPage from './components/LoginPage';
 import LogoutPage from './components/LogoutPage';
 import RecipePage from './components/RecipePage';
-import Footer from './components/Footer';
 
 class App extends Component {
   render() {
@@ -24,7 +23,6 @@ class App extends Component {
             <Route path="/recipe/:id" component={RecipePage} />
           </Switch>
         </BrowserRouter>
-        <Footer />
       </div>
     );
   }
