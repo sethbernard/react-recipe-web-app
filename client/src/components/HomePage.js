@@ -6,7 +6,7 @@ import axios from 'axios';
 
 class HomePage extends Component {
   state = {
-    recipeSearchTerm: 'barbeque',
+    recipeSearchTerm: 'pulled+pork',
     recipes: [],
     error: null
   };
