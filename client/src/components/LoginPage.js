@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import SignUpPage from './SignUpPage';
 
 const LoginPage = () => {
   return (
