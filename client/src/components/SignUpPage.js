@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-//import { Link, withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import fb from '../firebase/config';
 import 'firebase/auth';
 import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react';
@@ -23,14 +23,13 @@ class SignUpPage extends Component {
     const auth = fb.auth();
 
     try {
-      const authorizedUser = await auth.createUserWithEmailAndPassword(
+      const authUser = await auth.createUserWithEmailAndPassword(
         email,
         password
       );
-
+      console.log(authUser);
       await this.setState({ email: '', password: '', error: '' });
-      console.log(authorizedUser);
-      await this.props.history.push(HomePage);
+      await this.props.history.push('/'); // redirect authenticated user to home page
     } catch (error) {
       this.setState({ error });
     }
@@ -97,4 +96,4 @@ class SignUpPage extends Component {
   }
 }
 
-export default SignUpPage;
+export default withRouter(SignUpPage);
