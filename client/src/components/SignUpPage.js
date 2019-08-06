@@ -6,6 +6,7 @@ import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react';
 
 class SignUpPage extends Component {
   state = {
+    username: '',
     email: '',
     password: '',
     error: ''
@@ -27,14 +28,15 @@ class SignUpPage extends Component {
         password
       );
       console.log(authUser);
-      await this.setState({ email: '', password: '', error: '' });
+
+      await this.setState({ username: '', email: '', password: '', error: '' });
       await this.props.history.push('/'); // redirect authenticated user to home page
     } catch (error) {
       this.setState({ error });
     }
   };
 
-  // Simple form validation
+  // Very simple form validation - * Add more conditions *
   isInvalid = () => {
     const { email, password } = this.state;
     if (email === '' || password === '') {
@@ -64,6 +66,14 @@ class SignUpPage extends Component {
                 fluid
                 icon="user"
                 iconPosition="left"
+                placeholder="Username"
+                name="username"
+                onChange={this.handleChange}
+              />
+              <Form.Input
+                fluid
+                icon="mail"
+                iconPosition="left"
                 placeholder="E-mail address"
                 name="email"
                 onChange={this.handleChange}
@@ -88,7 +98,7 @@ class SignUpPage extends Component {
             </Segment>
           </Form>
 
-          {error && <p>Error: {error.message}</p>}
+          {error && <p>{error.message}</p>}
         </Grid.Column>
       </Grid>
     );
