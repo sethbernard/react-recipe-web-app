@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import fb from '../firebase/config';
 import 'firebase/auth';
 import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react';
-import HomePage from './HomePage';
 
 class SignUpPage extends Component {
   state = {
