@@ -34,7 +34,7 @@ const RecipePage = props => {
         </Header>
 
         {/* Time, Servings, Calories */}
-        <Segment.Group horizontal raised>
+        <Segment.Group raised horizontal>
           <Segment>
             <Icon name="clock" />
             {totalTime === 0 ? 'N/A' : `${totalTime} minutes`}
@@ -106,7 +106,7 @@ const RecipePage = props => {
           <Divider section />
 
           {/* Caution Labels */}
-          <div style={{ marginTop: '1rem' }} raised>
+          <div style={{ marginTop: '1rem' }}>
             <Header as="h3">Cautions</Header>
             {cautions.map((caution, i) => {
               return (
