@@ -1,46 +1,28 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
-import fb from '../firebase/config';
+import { Link, withRouter } from 'react-router-dom';
+import fb from '../../firebase/config';
 import 'firebase/auth';
 import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react';
 
-class SignUpPage extends Component {
+class LoginPage extends Component {
   state = {
-    username: '',
     email: '',
     password: '',
-    error: ''
+    error: null
   };
 
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  // Add Sign Up Event
-  handleSubmit = async e => {
-    e.preventDefault();
+  handleLogIn = async () => {
     const { email, password } = this.state;
-    const auth = fb.auth();
-
     try {
-      const authUser = await auth.createUserWithEmailAndPassword(
-        email,
-        password
-      );
-      console.log(authUser);
-
-      await this.setState({ username: '', email: '', password: '', error: '' });
+      const user = await fb.auth().signInWithEmailAndPassword(email, password);
+      console.log(user);
       await this.props.history.push('/'); // redirect authenticated user to home page
     } catch (error) {
       this.setState({ error });
-    }
-  };
-
-  // Very simple form validation - * Add more conditions *
-  isInvalid = () => {
-    const { email, password } = this.state;
-    if (email === '' || password === '') {
-      return true;
     }
   };
 
@@ -54,25 +36,17 @@ class SignUpPage extends Component {
       >
         <Grid.Column style={{ maxWidth: 450 }}>
           <Header as="h2" color="blue" textAlign="center">
-            Sign-up for your account
+            Log in to your account :)
           </Header>
           <Form
             size="large"
             style={{ margin: '1rem' }}
-            onSubmit={this.handleSubmit}
+            onSubmit={this.handleLogIn}
           >
             <Segment stacked>
               <Form.Input
                 fluid
                 icon="user"
-                iconPosition="left"
-                placeholder="Username"
-                name="username"
-                onChange={this.handleChange}
-              />
-              <Form.Input
-                fluid
-                icon="mail"
                 iconPosition="left"
                 placeholder="E-mail address"
                 name="email"
@@ -91,18 +65,23 @@ class SignUpPage extends Component {
                 color="blue"
                 fluid
                 size="large"
-                disabled={this.isInvalid()}
+                //disabled={this.isInvalid()}
               >
-                Sign-Up
+                Log In
               </Button>
             </Segment>
           </Form>
 
-          {error && <p>{error.message}</p>}
+          {error && <p>Error: {error.message}</p>}
+          <p>
+            Don't have an account yet?
+            <br />
+            Sign up <Link to="/signup">here</Link>
+          </p>
         </Grid.Column>
       </Grid>
     );
   }
 }
 
-export default withRouter(SignUpPage);
+export default withRouter(LoginPage);

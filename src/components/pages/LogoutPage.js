@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button } from 'semantic-ui-react';
-import fb from '../firebase/config';
+import fb from '../../firebase/config';
 import 'firebase/auth';
 
 class LogoutPage extends Component {

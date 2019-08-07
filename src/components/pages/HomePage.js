@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import RecipeSearch from './RecipeSearch';
-import RecipeCards from './RecipeCards';
-import { PATH, APP_ID, API_KEY } from '../utils/edamam-api-info';
+import RecipeSearch from '../RecipeSearch';
+import RecipeCards from '../RecipeCards';
+import { PATH, APP_ID, API_KEY } from '../../utils/edamam-api-info';
 import axios from 'axios';
 
 class HomePage extends Component {

@@ -3,12 +3,12 @@ import './App.css';
 import 'semantic-ui-css/semantic.min.css';
 import { Route, BrowserRouter, Switch } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import HomePage from './components/HomePage';
-import SavedRecipesPage from './components/SavedRecipesPage';
-import LoginPage from './components/LoginPage';
-import SignUpPage from './components/SignUpPage';
-import LogoutPage from './components/LogoutPage';
-import RecipePage from './components/RecipePage';
+import HomePage from './components/pages/HomePage';
+import SavedRecipesPage from './components/pages/SavedRecipesPage';
+import LoginPage from './components/pages/LoginPage';
+import SignUpPage from './components/pages/SignUpPage';
+import LogoutPage from './components/pages/LogoutPage';
+import RecipePage from './components/pages/RecipePage';
 
 class App extends Component {
   render() {
