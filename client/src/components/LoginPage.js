@@ -74,7 +74,9 @@ class LoginPage extends Component {
 
           {error && <p>Error: {error.message}</p>}
           <p>
-            Don't have an account yet? Sign up <Link to="/signup">here</Link>
+            Don't have an account yet?
+            <br />
+            Sign up <Link to="/signup">here</Link>
           </p>
         </Grid.Column>
       </Grid>
