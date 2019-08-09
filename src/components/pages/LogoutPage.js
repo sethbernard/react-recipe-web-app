@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Button } from 'semantic-ui-react';
-import fb from '../../firebase/config';
+import firebase from '../../firebase/config';
 import 'firebase/auth';
 
 class LogoutPage extends Component {
   authStateChanged = () => {
-    fb.auth().onAuthStateChanged(firebaseUser => {
+    firebase.auth().onAuthStateChanged(firebaseUser => {
       if (firebaseUser) {
         console.log(firebaseUser);
       } else {
@@ -15,7 +15,7 @@ class LogoutPage extends Component {
   };
 
   logOut = () => {
-    fb.auth().signOut();
+    firebase.auth().signOut();
   };
 
   componentDidMount() {

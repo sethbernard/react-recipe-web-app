@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import fb from '../../firebase/config';
+import firebase from '../../firebase/config';
 import 'firebase/auth';
 import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react';
 
@@ -18,7 +18,9 @@ class LoginPage extends Component {
   handleLogIn = async () => {
     const { email, password } = this.state;
     try {
-      const user = await fb.auth().signInWithEmailAndPassword(email, password);
+      const user = await firebase
+        .auth()
+        .signInWithEmailAndPassword(email, password);
       console.log(user);
       await this.props.history.push('/'); // redirect authenticated user to home page
     } catch (error) {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import fb from '../../firebase/config';
+import firebase from '../../firebase/config';
 import 'firebase/auth';
 import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react';
 
@@ -20,7 +20,7 @@ class SignUpPage extends Component {
   handleSubmit = async e => {
     e.preventDefault();
     const { email, password } = this.state;
-    const auth = fb.auth();
+    const auth = firebase.auth();
 
     try {
       const authUser = await auth.createUserWithEmailAndPassword(
