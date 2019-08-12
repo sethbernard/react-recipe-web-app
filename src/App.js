@@ -8,7 +8,7 @@ import SavedRecipesPage from './components/pages/SavedRecipesPage';
 import LoginPage from './components/pages/LoginPage';
 import SignUpPage from './components/pages/SignUpPage';
 import LogoutPage from './components/pages/LogoutPage';
-import RecipePage from './components/pages/RecipePage';
+import Recipe from './components/Recipe';
 
 class App extends Component {
   render() {
@@ -22,7 +22,7 @@ class App extends Component {
             <Route path="/login" component={LoginPage} />
             <Route path="/signup" component={SignUpPage} />
             <Route path="/logout" component={LogoutPage} />
-            <Route path="/recipe/:id" component={RecipePage} />
+            <Route path="/recipe/:id" component={Recipe} />
           </Switch>
         </BrowserRouter>
       </div>
