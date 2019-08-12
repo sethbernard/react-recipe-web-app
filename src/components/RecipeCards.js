@@ -37,6 +37,7 @@ const RecipeCards = ({ recipes }) => {
                   to={{
                     pathname: `/recipe/${id}`,
                     state: {
+                      id,
                       label,
                       image,
                       source,

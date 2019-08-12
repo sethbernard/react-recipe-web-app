@@ -3,6 +3,7 @@ import RecipeSearch from '../RecipeSearch';
 import RecipeCards from '../RecipeCards';
 import { PATH, APP_ID, API_KEY } from '../../utils/edamam-api-info';
 import axios from 'axios';
+import firebase from '../../firebase/config';
 
 class HomePage extends Component {
   state = {
@@ -13,6 +14,7 @@ class HomePage extends Component {
 
   componentDidMount() {
     this.getData();
+    console.log(firebase.auth().currentUser);
   }
 
   getData = async () => {
