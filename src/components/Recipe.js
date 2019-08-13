@@ -16,9 +16,10 @@ import {
 } from 'semantic-ui-react';
 
 const Recipe = props => {
-  // console.log(props);
+  console.log(props);
 
   const {
+    id,
     label,
     source,
     totalTime,
@@ -45,11 +46,20 @@ const Recipe = props => {
     db.collection('userrecipes')
       .doc(recipeData.id)
       .set({
+        id,
         saved: true,
         userId: user.uid,
         image,
         label,
-        source
+        source,
+        totalTime,
+        servings,
+        calories,
+        ingredientLines,
+        dietLabels,
+        healthLabels,
+        cautions,
+        url
       })
       .then(() => {
         console.log('Document successfully written!');

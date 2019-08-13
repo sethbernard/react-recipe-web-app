@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Link, withRouter } from 'react-router-dom';
+import { Grid } from 'semantic-ui-react';
 // import RecipeCards from '../RecipeCards';
 import RecipeCard from '../RecipeCard';
 import firebase from '../../firebase/config';
@@ -33,30 +35,54 @@ class SavedRecipesPage extends Component {
   componentDidMount() {
     setTimeout(() => {
       this.getSavedRecipes();
-    }, 500);
+    }, 100);
 
     // setTimeout(() => {
     //   console.log(this.state.savedRecipes);
-    // }, 3000);
+    // }, 5000);
   }
 
   render() {
     return (
-      <div>
-        Saved Recipes Page
+      <Grid columns={3} stackable centered container>
         {this.state.savedRecipes.map((recipe, index) => {
           return (
-            <RecipeCard
-              key={index}
-              image={recipe.image}
-              header={recipe.label}
-              meta={recipe.source}
-            />
+            <Grid.Column key={index} width={5} style={{ marginTop: '3rem' }}>
+              <RecipeCard
+                key={index}
+                image={recipe.image}
+                header={recipe.label}
+                meta={recipe.source}
+                link={
+                  <Link
+                    to={{
+                      pathname: `/recipe/${recipe.id}`,
+                      state: {
+                        id: recipe.id,
+                        label: recipe.label,
+                        image: recipe.image,
+                        source: recipe.source,
+                        url: recipe.url,
+                        servings: recipe.servings,
+                        dietLabels: recipe.dietlabels,
+                        ingredientLines: recipe.ingredientLines,
+                        calories: recipe.calories,
+                        totalTime: recipe.totalTime,
+                        healthLabels: recipe.healthLabels,
+                        cautions: recipe.cautions
+                      }
+                    }}
+                  >
+                    View Recipe
+                  </Link>
+                }
+              />
+            </Grid.Column>
           );
         })}
-      </div>
+      </Grid>
     );
   }
 }
 
-export default SavedRecipesPage;
+export default withRouter(SavedRecipesPage);
