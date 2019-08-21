@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import RecipeSearch from '../RecipeSearch';
 import RecipeCards from '../RecipeCards';
+import LoadingScreen from '../LoadingScreen';
 import { PATH, APP_ID, API_KEY } from '../../utils/edamam-api-info';
-import { Grid, Button } from 'semantic-ui-react';
+import { Grid, Button, Dimmer, Loader } from 'semantic-ui-react';
 import axios from 'axios';
 // import firebase from '../../firebase/config';
 
@@ -11,6 +12,7 @@ class HomePage extends Component {
     recipeSearchTerm: 'pulled+pork',
     recipes: [],
     toParameter: 6,
+    loading: true,
     error: null
   };
 
@@ -25,10 +27,11 @@ class HomePage extends Component {
       const response = await axios.get(
         `${PATH}?q=${recipeSearchTerm}&app_id=${APP_ID}&app_key=${API_KEY}&to=${toParameter}`
       );
-      const recipes = response.data.hits;
+      const recipes = await response.data.hits;
       await this.setState(prevState => ({
         ...prevState,
-        recipes
+        recipes,
+        loading: false
       }));
     } catch (error) {
       this.setState({ error });
@@ -41,6 +44,9 @@ class HomePage extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
+    this.setState({
+      loading: true
+    });
     this.getData();
   };
 
@@ -59,18 +65,27 @@ class HomePage extends Component {
           onChange={this.handleChange}
           onSubmit={this.handleSubmit}
         />
-        <RecipeCards recipes={this.state.recipes} />
+        {this.state.loading ? (
+          <LoadingScreen />
+        ) : (
+          <>
+            <RecipeCards
+              recipes={this.state.recipes}
+              loading={this.state.loading}
+            />
 
-        <Grid centered container>
-          <Button
-            size="large"
-            color="blue"
-            style={{ margin: '2rem 0 1rem 0' }}
-            onClick={this.handleToParameter}
-          >
-            Load more recipes
-          </Button>
-        </Grid>
+            <Grid centered container>
+              <Button
+                size="large"
+                color="blue"
+                style={{ margin: '2rem 0 1rem 0' }}
+                onClick={this.handleToParameter}
+              >
+                Load more recipes
+              </Button>
+            </Grid>
+          </>
+        )}
       </div>
     );
   }

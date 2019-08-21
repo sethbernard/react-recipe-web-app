@@ -3,7 +3,7 @@ import RecipeCard from './RecipeCard';
 import { Grid } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
-const RecipeCards = ({ recipes }) => {
+const RecipeCards = ({ recipes, loading }) => {
   return (
     <Grid columns={3} stackable centered container>
       {recipes.map((card, index) => {

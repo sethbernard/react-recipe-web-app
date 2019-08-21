@@ -11,7 +11,6 @@ import {
   Image,
   List,
   Label,
-  Divider,
   Button
 } from 'semantic-ui-react';
 
