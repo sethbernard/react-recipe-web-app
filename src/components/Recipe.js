@@ -112,7 +112,8 @@ const Recipe = props => {
         </Segment>
       </Grid.Column>
 
-      <Grid.Column size={4} textAlign="center">
+      {/* Recipe Image */}
+      <Grid.Column size={4} textAlign="center" style={{ marginTop: '3rem' }}>
         <Image src={image} size="medium" spaced="left" rounded raised />
       </Grid.Column>
 
@@ -121,7 +122,7 @@ const Recipe = props => {
         <Header as="h3" textAlign="center">
           Ingredients List
         </Header>
-        <Segment raised style={{ height: '100%', padding: '2rem' }}>
+        <Segment raised style={{ minHeight: '287px', padding: '2rem' }}>
           <List bulleted>
             {ingredientLines.map((step, i) => {
               return (
@@ -131,6 +132,22 @@ const Recipe = props => {
               );
             })}
           </List>
+        </Segment>
+
+        {/* Recipe External Link */}
+        <Segment
+          style={{
+            margin: '2rem 0 2rem 0',
+            fontSize: '1.2rem',
+            textAlign: 'center'
+          }}
+          raised
+        >
+          View full recipe with directions
+          <a href={url} target="_blank" rel="noopener noreferrer">
+            {' '}
+            here
+          </a>
         </Segment>
       </Grid.Column>
 
@@ -148,33 +165,35 @@ const Recipe = props => {
             })
           ) : (
             <Label size="large" color="blue">
-              None
+              No Diet Labels
             </Label>
           )}
-          <Divider section />
+        </Segment>
 
-          {/* Caution Labels */}
-          <div style={{ marginTop: '1rem' }}>
-            <Header as="h3">Cautions</Header>
-            {cautions.map((caution, i) => {
+        {/* Caution Labels */}
+        <Segment raised style={{ marginTop: '3rem', padding: '2rem' }}>
+          <Header as="h3">Cautions</Header>
+          {cautions && cautions.length ? (
+            cautions.map((caution, i) => {
               return (
                 <Label key={i} size="large" color="red">
                   {caution}
                 </Label>
               );
-            })}
-          </div>
+            })
+          ) : (
+            <Label size="large" color="red">
+              No Cautions
+            </Label>
+          )}
         </Segment>
 
-        {/* Recipe External Link */}
-        <Segment style={{ marginTop: '3rem', fontSize: '1.2rem' }} raised>
-          View full recipe with directions
-          <a href={url} target="_blank" rel="noopener noreferrer">
-            {' '}
-            here
-          </a>
-        </Segment>
-        <Button onClick={() => handleSaveRecipe(recipeData)}>
+        {/* Save Recipe Button */}
+        <Button
+          size="large"
+          style={{ margin: '2rem 0 2rem 0' }}
+          onClick={() => handleSaveRecipe(recipeData)}
+        >
           <Link to="/saved-recipes">Save Recipe</Link>
         </Button>
       </Grid.Column>
