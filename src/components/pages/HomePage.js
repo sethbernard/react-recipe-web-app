@@ -11,7 +11,7 @@ class HomePage extends Component {
   state = {
     recipeSearchTerm: 'pulled+pork',
     recipes: [],
-    toParameter: 6,
+    toParameter: 12,
     loading: true,
     error: null
   };
@@ -45,19 +45,21 @@ class HomePage extends Component {
   };
 
   // Load while data is being fetched and then populate page with recipe cards and their data
-  handleSubmit = e => {
+  handleSubmit = async e => {
     e.preventDefault();
-    this.setState({
-      loading: true
+
+    await this.setState({
+      loading: true,
+      toParameter: 12
     });
-    this.getData();
+    await this.getData();
   };
 
   // Increase amount of recipe cards being populated on page
   handleToParameter = async () => {
     await this.setState(prevState => ({
       ...prevState,
-      toParameter: this.state.toParameter + 6
+      toParameter: this.state.toParameter + 12
     }));
     await this.getData();
   };
@@ -85,7 +87,7 @@ class HomePage extends Component {
                 style={{ margin: '2rem 0 1rem 0' }}
                 onClick={this.handleToParameter}
               >
-                Load more recipes
+                LOAD MORE RECIPES
               </Button>
             </Grid>
           </>
