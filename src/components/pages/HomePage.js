@@ -21,6 +21,7 @@ class HomePage extends Component {
     // console.log(firebase.auth().currentUser);
   }
 
+  // Get recipes for the recipe search term
   getData = async () => {
     try {
       const { recipeSearchTerm, toParameter } = this.state;
@@ -38,10 +39,12 @@ class HomePage extends Component {
     }
   };
 
+  // Set current state to what is in the search box
   handleChange = e => {
     this.setState({ recipeSearchTerm: e.target.value });
   };
 
+  // Load while data is being fetched and then populate page with recipe cards and their data
   handleSubmit = e => {
     e.preventDefault();
     this.setState({
@@ -50,6 +53,7 @@ class HomePage extends Component {
     this.getData();
   };
 
+  // Increase amount of recipe cards being populated on page
   handleToParameter = async () => {
     await this.setState(prevState => ({
       ...prevState,
