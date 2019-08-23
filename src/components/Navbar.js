@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Menu } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import 'firebase/auth';
 
 class Navbar extends Component {
   state = { activeItem: 'home' };
@@ -27,20 +28,23 @@ class Navbar extends Component {
           to="/saved-recipes"
         />
         <Menu.Menu position="right">
-          <Menu.Item
-            name="login"
-            active={activeItem === 'login'}
-            onClick={this.handleItemClick}
-            as={Link}
-            to="/login"
-          />
-          <Menu.Item
-            name="logout"
-            active={activeItem === 'logout'}
-            onClick={this.handleItemClick}
-            as={Link}
-            to="/logout"
-          />
+          {this.props.auth === false ? (
+            <Menu.Item
+              name="login"
+              active={activeItem === 'login'}
+              onClick={this.handleItemClick}
+              as={Link}
+              to="/login"
+            />
+          ) : (
+            <Menu.Item
+              name="logout"
+              active={activeItem === 'logout'}
+              onClick={this.handleItemClick}
+              as={Link}
+              to="/logout"
+            />
+          )}
         </Menu.Menu>
       </Menu>
     );
