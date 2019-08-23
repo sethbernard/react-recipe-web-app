@@ -1,37 +1,54 @@
 import React, { Component } from 'react';
-import { Button } from 'semantic-ui-react';
+import { withRouter } from 'react-router-dom';
+import { Button, Modal } from 'semantic-ui-react';
 import firebase from '../../firebase/config';
 import 'firebase/auth';
 
 class LogoutPage extends Component {
-  authStateChanged = () => {
-    firebase.auth().onAuthStateChanged(firebaseUser => {
-      if (firebaseUser) {
-        console.log(firebaseUser);
-      } else {
-        console.log('NOT LOGGED IN');
-      }
-    });
+  state = { open: true };
+
+  showModal = () => {
+    this.setState({ open: true });
   };
 
-  logOut = () => {
-    firebase.auth().signOut();
+  closeModal = () => {
+    this.setState({ open: false });
+  };
+
+  logOut = async () => {
+    await firebase.auth().signOut();
+    await this.props.history.push('/');
+  };
+
+  stayLoggedIn = () => {
+    this.props.history.push('/saved-recipes');
   };
 
   componentDidMount() {
-    this.authStateChanged();
+    this.showModal();
   }
 
   render() {
+    const { open } = this.state;
     return (
       <div>
-        <h1>Logout Page!</h1>
-        <Button color="red" size="large" onClick={this.logOut}>
-          Log Out
-        </Button>
+        <Modal size="small" open={open} onClose={this.closeModal}>
+          <Modal.Header>Log out</Modal.Header>
+          <Modal.Content>
+            <p>Are you sure you want to log out of your account?</p>
+          </Modal.Content>
+          <Modal.Actions>
+            <Button positive color="red" onClick={this.logOut}>
+              Yes
+            </Button>
+            <Button onClick={this.stayLoggedIn} negative>
+              No
+            </Button>
+          </Modal.Actions>
+        </Modal>
       </div>
     );
   }
 }
 
-export default LogoutPage;
+export default withRouter(LogoutPage);
