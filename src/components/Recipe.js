@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import firebase from '../firebase/config';
 import 'firebase/auth';
 import { Link } from 'react-router-dom';
@@ -15,8 +15,14 @@ import {
 } from 'semantic-ui-react';
 
 const Recipe = props => {
-  console.log(props);
+  // console.log(props);
 
+  // Scroll to very top of window after recipe card link is clicked
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  // Destructure data being sent over from React Router Link
   const {
     id,
     label,
@@ -93,6 +99,7 @@ const Recipe = props => {
 
         {/* Health Labels */}
         <Segment
+          raised
           style={{ textAlign: 'center', marginTop: '3rem', padding: '2rem' }}
         >
           <Header as="h3">Health Labels</Header>
