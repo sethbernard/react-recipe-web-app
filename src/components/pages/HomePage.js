@@ -3,7 +3,7 @@ import RecipeSearch from '../RecipeSearch';
 import RecipeCards from '../RecipeCards';
 import LoadingScreen from '../LoadingScreen';
 import { PATH, APP_ID, API_KEY } from '../../utils/edamam-api-info';
-import { Grid, Button, Dimmer, Loader } from 'semantic-ui-react';
+import { Grid, Button } from 'semantic-ui-react';
 import axios from 'axios';
 // import firebase from '../../firebase/config';
 
@@ -87,7 +87,7 @@ class HomePage extends Component {
                 style={{ margin: '2rem 0 1rem 0' }}
                 onClick={this.handleToParameter}
               >
-                LOAD MORE RECIPES
+                Load more recipes ...
               </Button>
             </Grid>
           </>
