@@ -10,17 +10,21 @@ import 'firebase/auth';
 class SavedRecipesPage extends Component {
   state = { savedRecipes: [], loading: true };
 
-  getSavedRecipes = () => {
-    // Had to use this method or else user was undefined on rerender with  const user = firebase.auth().currentUser
+  // Get reference to user recipes
+  getSavedRecipesRef = user => {
+    return firebase
+      .firestore()
+      .collection('userrecipes')
+      .where('userId', '==', user.uid)
+      .get();
+  };
+
+  saveUserRecipesToState = () => {
+    // Had to use this method or else user was undefined on re-render using const user = firebase.auth().currentUser
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        const savedRecipesRef = firebase
-          .firestore()
-          .collection('userrecipes')
-          .where('userId', '==', user.uid);
-
+        const savedRecipesRef = this.getSavedRecipesRef(user);
         savedRecipesRef
-          .get()
           .then(querySnapshot => {
             querySnapshot.forEach(doc => {
               this.setState({
@@ -33,57 +37,67 @@ class SavedRecipesPage extends Component {
             console.error(err);
           });
       } else {
-        console.log('No user exists');
+        this.setState({ loading: false });
       }
     });
   };
 
   componentDidMount = () => {
-    this.getSavedRecipes();
+    // if (!this.state.loading) {
+    //   this.setState({ loading: true });
+    // }
+    this.saveUserRecipesToState();
   };
 
   render() {
-    return this.state.loading ? (
-      <LoadingScreen />
-    ) : (
-      <Grid columns={3} stackable centered container>
-        {this.state.savedRecipes.map((recipe, index) => {
-          return (
-            <Grid.Column key={index} width={5} style={{ marginTop: '3rem' }}>
-              <RecipeCard
-                key={index}
-                image={recipe.image}
-                header={recipe.label}
-                meta={recipe.source}
-                link={
-                  <Link
-                    to={{
-                      pathname: `/recipe/${recipe.id}`,
-                      state: {
-                        id: recipe.id,
-                        label: recipe.label,
-                        image: recipe.image,
-                        source: recipe.source,
-                        url: recipe.url,
-                        servings: recipe.servings,
-                        dietLabels: recipe.dietlabels,
-                        ingredientLines: recipe.ingredientLines,
-                        calories: recipe.calories,
-                        totalTime: recipe.totalTime,
-                        healthLabels: recipe.healthLabels,
-                        cautions: recipe.cautions
-                      }
-                    }}
-                  >
-                    View Recipe
-                  </Link>
-                }
-              />
-            </Grid.Column>
-          );
-        })}
-      </Grid>
-    );
+    const { loading } = this.state;
+    if (loading) {
+      return <LoadingScreen />;
+    }
+
+    if (!loading && this.props.auth) {
+      return (
+        <Grid columns={3} stackable centered container>
+          {this.state.savedRecipes.map((recipe, index) => {
+            return (
+              <Grid.Column key={index} width={5} style={{ marginTop: '3rem' }}>
+                <RecipeCard
+                  key={index}
+                  image={recipe.image}
+                  header={recipe.label}
+                  meta={recipe.source}
+                  link={
+                    <Link
+                      to={{
+                        pathname: `/recipe/${recipe.id}`,
+                        state: {
+                          id: recipe.id,
+                          label: recipe.label,
+                          image: recipe.image,
+                          source: recipe.source,
+                          url: recipe.url,
+                          servings: recipe.servings,
+                          dietLabels: recipe.dietlabels,
+                          ingredientLines: recipe.ingredientLines,
+                          calories: recipe.calories,
+                          totalTime: recipe.totalTime,
+                          healthLabels: recipe.healthLabels,
+                          cautions: recipe.cautions
+                        }
+                      }}
+                    >
+                      View Recipe
+                    </Link>
+                  }
+                />
+              </Grid.Column>
+            );
+          })}
+        </Grid>
+      );
+    } else {
+      return <h3>Please login or signup to view this page!</h3>;
+    }
   }
 }
 

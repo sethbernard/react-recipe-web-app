@@ -37,7 +37,15 @@ class App extends Component {
           <Navbar auth={this.state.userAuthenticated} />
           <Switch>
             <Route exact path="/" component={HomePage} />
-            <Route path="/saved-recipes" component={SavedRecipesPage} />
+            <Route
+              path="/saved-recipes"
+              render={props => (
+                <SavedRecipesPage
+                  {...props}
+                  auth={this.state.userAuthenticated}
+                />
+              )}
+            />
             <Route path="/login" component={LoginPage} />
             <Route path="/signup" component={SignUpPage} />
             <Route path="/logout" component={LogoutPage} />
