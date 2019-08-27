@@ -120,7 +120,7 @@ const Recipe = props => {
 
       {/* Recipe Image */}
       <Grid.Column size={4} textAlign="center" style={{ marginTop: '3rem' }}>
-        <Image src={image} size="medium" spaced="left" rounded raised />
+        <Image src={image} size="medium" spaced="left" rounded />
       </Grid.Column>
 
       {/* Ingredients List */}
