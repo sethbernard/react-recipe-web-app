@@ -18,10 +18,7 @@ class LoginPage extends Component {
   handleLogIn = async () => {
     const { email, password } = this.state;
     try {
-      const user = await firebase
-        .auth()
-        .signInWithEmailAndPassword(email, password);
-      console.log(user);
+      await firebase.auth().signInWithEmailAndPassword(email, password);
       await this.props.history.push('/'); // redirect authenticated user to home page
     } catch (error) {
       this.setState({ error });
@@ -38,7 +35,7 @@ class LoginPage extends Component {
       >
         <Grid.Column style={{ maxWidth: 450 }}>
           <Header as="h2" color="blue" textAlign="center">
-            Log in to your account :)
+            Log in to your account
           </Header>
           <Form
             size="large"
@@ -74,7 +71,7 @@ class LoginPage extends Component {
             </Segment>
           </Form>
 
-          {error && <p>Error: {error.message}</p>}
+          {error && <p style={{ color: 'red' }}>{error.message}</p>}
           <p>
             Don't have an account yet?
             <br />

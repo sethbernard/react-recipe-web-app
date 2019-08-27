@@ -1,49 +1,51 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { Grid } from 'semantic-ui-react';
-// import RecipeCards from '../RecipeCards';
 import RecipeCard from '../RecipeCard';
+import LoadingScreen from '../LoadingScreen';
 import firebase from '../../firebase/config';
 import 'firebase/firestore';
 import 'firebase/auth';
 
 class SavedRecipesPage extends Component {
-  state = { savedRecipes: [] };
+  state = { savedRecipes: [], loading: true };
 
-  getSavedRecipes = async () => {
-    const user = await firebase.auth().currentUser;
-    // await console.log(user.uid);
-    const savedRecipesRef = await firebase
-      .firestore()
-      .collection('userrecipes')
-      .where('userId', '==', user.uid);
+  getSavedRecipes = () => {
+    // Had to use this method or else user was undefined on rerender with  const user = firebase.auth().currentUser
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        const savedRecipesRef = firebase
+          .firestore()
+          .collection('userrecipes')
+          .where('userId', '==', user.uid);
 
-    savedRecipesRef
-      .get()
-      .then(querySnapshot => {
-        querySnapshot.forEach(doc => {
-          this.setState({
-            savedRecipes: [...this.state.savedRecipes, doc.data()]
+        savedRecipesRef
+          .get()
+          .then(querySnapshot => {
+            querySnapshot.forEach(doc => {
+              this.setState({
+                savedRecipes: [...this.state.savedRecipes, doc.data()],
+                loading: false
+              });
+            });
+          })
+          .catch(err => {
+            console.error(err);
           });
-        });
-      })
-      .catch(err => {
-        console.error(err);
-      });
+      } else {
+        console.log('No user exists');
+      }
+    });
   };
 
-  componentDidMount() {
-    setTimeout(() => {
-      this.getSavedRecipes();
-    }, 100);
-
-    // setTimeout(() => {
-    //   console.log(this.state.savedRecipes);
-    // }, 5000);
-  }
+  componentDidMount = () => {
+    this.getSavedRecipes();
+  };
 
   render() {
-    return (
+    return this.state.loading ? (
+      <LoadingScreen />
+    ) : (
       <Grid columns={3} stackable centered container>
         {this.state.savedRecipes.map((recipe, index) => {
           return (
