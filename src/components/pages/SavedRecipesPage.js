@@ -3,6 +3,7 @@ import { Link, withRouter } from 'react-router-dom';
 import { Grid } from 'semantic-ui-react';
 import RecipeCard from '../RecipeCard';
 import LoadingScreen from '../LoadingScreen';
+import NotAuthedMessage from '../NotAuthedMessage';
 import firebase from '../../firebase/config';
 import 'firebase/firestore';
 import 'firebase/auth';
@@ -17,6 +18,23 @@ class SavedRecipesPage extends Component {
       .collection('userrecipes')
       .where('userId', '==', user.uid)
       .get();
+  };
+
+  // Delete user recipe document by id
+
+  deleteRecipe = id => {
+    const db = firebase.firestore();
+    db.collection('userrecipes')
+      .doc(id)
+      .delete()
+      .then(() => {
+        // Filter out the deleted recipe and save the updated recipes to state
+        let savedRecipes = this.state.savedRecipes.filter(recipe => {
+          return recipe.id !== id;
+        });
+        this.setState({ savedRecipes });
+        console.log('Document successfully deleted');
+      });
   };
 
   saveUserRecipesToState = () => {
@@ -57,10 +75,16 @@ class SavedRecipesPage extends Component {
 
     if (!loading && this.props.auth) {
       return (
-        <Grid columns={3} stackable centered container>
+        <Grid
+          columns={3}
+          stackable
+          centered
+          container
+          style={{ marginTop: '3rem' }}
+        >
           {this.state.savedRecipes.map((recipe, index) => {
             return (
-              <Grid.Column key={index} width={5} style={{ marginTop: '3rem' }}>
+              <Grid.Column key={index} width={5}>
                 <RecipeCard
                   key={index}
                   image={recipe.image}
@@ -89,6 +113,9 @@ class SavedRecipesPage extends Component {
                       View Recipe
                     </Link>
                   }
+                  deleteRecipe={() => {
+                    this.deleteRecipe(recipe.id);
+                  }}
                 />
               </Grid.Column>
             );
@@ -96,7 +123,7 @@ class SavedRecipesPage extends Component {
         </Grid>
       );
     } else {
-      return <h3>Please login or signup to view this page!</h3>;
+      return <NotAuthedMessage />;
     }
   }
 }
