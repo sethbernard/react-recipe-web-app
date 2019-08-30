@@ -29,13 +29,22 @@ class Navbar extends Component {
         />
         <Menu.Menu position="right">
           {this.props.auth === false ? (
-            <Menu.Item
-              name="login"
-              active={activeItem === 'login'}
-              onClick={this.handleItemClick}
-              as={Link}
-              to="/login"
-            />
+            <>
+              <Menu.Item
+                name="signup"
+                active={activeItem === 'signup'}
+                onClick={this.handleItemClick}
+                as={Link}
+                to="/signup"
+              />
+              <Menu.Item
+                name="login"
+                active={activeItem === 'login'}
+                onClick={this.handleItemClick}
+                as={Link}
+                to="/login"
+              />
+            </>
           ) : (
             <Menu.Item
               name="logout"
