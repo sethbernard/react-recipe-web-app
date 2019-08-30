@@ -11,6 +11,7 @@ import LoginPage from './components/pages/LoginPage';
 import SignUpPage from './components/pages/SignUpPage';
 import LogoutPage from './components/pages/LogoutPage';
 import Recipe from './components/Recipe';
+import Footer from './components/Footer';
 
 class App extends Component {
   state = {
@@ -52,6 +53,7 @@ class App extends Component {
             <Route path="/recipe/:id" component={Recipe} />
           </Switch>
         </BrowserRouter>
+        <Footer />
       </div>
     );
   }
