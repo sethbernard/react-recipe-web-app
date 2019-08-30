@@ -49,7 +49,7 @@ class SignUpPage extends Component {
     return (
       <Grid
         textAlign="center"
-        style={{ height: '100vh' }}
+        style={{ height: '75vh' }}
         verticalAlign="middle"
       >
         <Grid.Column style={{ maxWidth: 450 }}>

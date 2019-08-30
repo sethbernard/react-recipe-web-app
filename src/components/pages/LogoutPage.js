@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { Button, Modal } from 'semantic-ui-react';
 import firebase from '../../firebase/config';
 import 'firebase/auth';
@@ -15,9 +15,9 @@ class LogoutPage extends Component {
     this.setState({ open: false });
   };
 
-  logOut = async () => {
-    await firebase.auth().signOut();
-    await this.props.history.push('/');
+  logOut = () => {
+    firebase.auth().signOut();
+    this.props.history.push('/');
   };
 
   stayLoggedIn = () => {
@@ -31,19 +31,19 @@ class LogoutPage extends Component {
   render() {
     const { open } = this.state;
     return (
-      <div>
+      <div style={{ height: '75vh' }}>
         <Modal size="small" open={open} onClose={this.closeModal}>
           <Modal.Header>Log out</Modal.Header>
           <Modal.Content>
             <p>Are you sure you want to log out of your account?</p>
           </Modal.Content>
           <Modal.Actions>
-            <Button positive color="red" onClick={this.logOut}>
+            <Button positive onClick={this.logOut}>
               Yes
             </Button>
-            <Button onClick={this.stayLoggedIn} negative>
-              No
-            </Button>
+            <Link to="/saved-recipes">
+              <Button negative>No</Button>
+            </Link>
           </Modal.Actions>
         </Modal>
       </div>
