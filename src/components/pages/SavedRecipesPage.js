@@ -3,7 +3,7 @@ import { Link, withRouter } from 'react-router-dom';
 import { Grid } from 'semantic-ui-react';
 import RecipeCard from '../RecipeCard';
 import LoadingScreen from '../LoadingScreen';
-import NotAuthedMessage from '../NotAuthedMessage';
+import NotAuthedModal from '../NotAuthedModal';
 import firebase from '../../firebase/config';
 import 'firebase/firestore';
 import 'firebase/auth';
@@ -61,10 +61,12 @@ class SavedRecipesPage extends Component {
   };
 
   componentDidMount = () => {
-    // if (!this.state.loading) {
-    //   this.setState({ loading: true });
-    // }
-    this.saveUserRecipesToState();
+    if (!this.state.savedRecipes.length) {
+      this.setState({ loading: false });
+      this.saveUserRecipesToState();
+    } else {
+      this.saveUserRecipesToState();
+    }
   };
 
   render() {
@@ -80,7 +82,7 @@ class SavedRecipesPage extends Component {
           stackable
           centered
           container
-          style={{ marginTop: '3rem' }}
+          style={{ height: '80vh', marginTop: '3rem' }}
         >
           {this.state.savedRecipes.map((recipe, index) => {
             return (
@@ -123,7 +125,7 @@ class SavedRecipesPage extends Component {
         </Grid>
       );
     } else {
-      return <NotAuthedMessage />;
+      return <NotAuthedModal />;
     }
   }
 }
