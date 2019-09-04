@@ -23,7 +23,6 @@ class App extends Component {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         this.setState({ ...this.state, userAuthenticated: true });
-        console.log(user);
       } else {
         this.setState({ userAuthenticated: false });
         console.log('No user is signed in');
@@ -32,19 +31,17 @@ class App extends Component {
   };
 
   render() {
+    const { userAuthenticated } = this.state;
     return (
-      <div>
+      <>
         <BrowserRouter>
-          <Navbar auth={this.state.userAuthenticated} />
+          <Navbar auth={userAuthenticated} />
           <Switch>
             <Route exact path="/" component={HomePage} />
             <Route
               path="/saved-recipes"
               render={props => (
-                <SavedRecipesPage
-                  {...props}
-                  auth={this.state.userAuthenticated}
-                />
+                <SavedRecipesPage {...props} auth={userAuthenticated} />
               )}
             />
             <Route path="/login" component={LoginPage} />
@@ -54,7 +51,7 @@ class App extends Component {
           </Switch>
         </BrowserRouter>
         <Footer />
-      </div>
+      </>
     );
   }
 }
