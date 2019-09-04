@@ -6,9 +6,10 @@ import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react';
 
 class SignUpPage extends Component {
   state = {
-    username: '',
+    displayName: '',
     email: '',
     password: '',
+    passwordTwo: '',
     error: ''
   };
 
@@ -17,35 +18,35 @@ class SignUpPage extends Component {
   };
 
   // Add Sign Up Event
-  handleSubmit = async e => {
+  handleSignUp = async e => {
     e.preventDefault();
-    const { email, password } = this.state;
+    const { email, password, displayName } = this.state;
     const auth = firebase.auth();
 
     try {
-      const authUser = await auth.createUserWithEmailAndPassword(
-        email,
-        password
-      );
-      console.log(authUser);
-
-      await this.setState({ username: '', email: '', password: '', error: '' });
+      await auth.createUserWithEmailAndPassword(email, password);
+      const user = await firebase.auth().currentUser;
+      await user.updateProfile({ displayName }); // Add displayName to firestore
       await this.props.history.push('/'); // redirect authenticated user to home page
     } catch (error) {
       this.setState({ error });
     }
   };
 
-  // Very simple form validation - * Add more conditions *
+  // Very simple form validation
   isInvalid = () => {
-    const { email, password } = this.state;
+    const { email, password, passwordTwo } = this.state;
     if (email === '' || password === '') {
+      return true;
+    }
+    if (password !== passwordTwo) {
       return true;
     }
   };
 
   render() {
     const { error } = this.state;
+
     return (
       <Grid
         textAlign="center"
@@ -59,7 +60,7 @@ class SignUpPage extends Component {
           <Form
             size="large"
             style={{ margin: '1rem' }}
-            onSubmit={this.handleSubmit}
+            onSubmit={this.handleSignUp}
           >
             <Segment stacked>
               <Form.Input
@@ -67,7 +68,7 @@ class SignUpPage extends Component {
                 icon="user"
                 iconPosition="left"
                 placeholder="Username"
-                name="username"
+                name="displayName"
                 onChange={this.handleChange}
               />
               <Form.Input
@@ -87,13 +88,22 @@ class SignUpPage extends Component {
                 name="password"
                 onChange={this.handleChange}
               />
+              <Form.Input
+                fluid
+                icon="lock"
+                iconPosition="left"
+                placeholder="Confirm Password"
+                type="password"
+                name="passwordTwo"
+                onChange={this.handleChange}
+              />
               <Button
                 color="blue"
                 fluid
                 size="large"
                 disabled={this.isInvalid()}
               >
-                Sign-Up
+                Sign Up
               </Button>
             </Segment>
           </Form>
