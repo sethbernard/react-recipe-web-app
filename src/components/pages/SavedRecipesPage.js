@@ -9,7 +9,7 @@ import 'firebase/firestore';
 import 'firebase/auth';
 
 class SavedRecipesPage extends Component {
-  state = { savedRecipes: [], loading: true };
+  state = { savedRecipes: [], loading: true, username: '' };
 
   // Get reference to user recipes
   getSavedRecipesRef = user => {
@@ -33,7 +33,6 @@ class SavedRecipesPage extends Component {
           return recipe.id !== id;
         });
         this.setState({ savedRecipes });
-        console.log('Document successfully deleted');
       });
   };
 
@@ -47,7 +46,8 @@ class SavedRecipesPage extends Component {
             querySnapshot.forEach(doc => {
               this.setState({
                 savedRecipes: [...this.state.savedRecipes, doc.data()],
-                loading: false
+                loading: false,
+                username: user.displayName.toUpperCase()
               });
             });
           })
@@ -62,7 +62,9 @@ class SavedRecipesPage extends Component {
 
   componentDidMount = () => {
     if (!this.state.savedRecipes.length) {
-      this.setState({ loading: false });
+      this.setState({
+        loading: false
+      });
       this.saveUserRecipesToState();
     } else {
       this.saveUserRecipesToState();
@@ -70,59 +72,65 @@ class SavedRecipesPage extends Component {
   };
 
   render() {
-    const { loading } = this.state;
+    const { loading, username, savedRecipes } = this.state;
+
     if (loading) {
       return <LoadingScreen />;
     }
 
     if (!loading && this.props.auth) {
       return (
-        <Grid
-          columns={3}
-          stackable
-          centered
-          container
-          style={{ height: '80vh', marginTop: '3rem' }}
-        >
-          {this.state.savedRecipes.map((recipe, index) => {
-            return (
-              <Grid.Column key={index} width={5}>
-                <RecipeCard
-                  key={index}
-                  image={recipe.image}
-                  header={recipe.label}
-                  meta={recipe.source}
-                  link={
-                    <Link
-                      to={{
-                        pathname: `/recipe/${recipe.id}`,
-                        state: {
-                          id: recipe.id,
-                          label: recipe.label,
-                          image: recipe.image,
-                          source: recipe.source,
-                          url: recipe.url,
-                          servings: recipe.servings,
-                          dietLabels: recipe.dietlabels,
-                          ingredientLines: recipe.ingredientLines,
-                          calories: recipe.calories,
-                          totalTime: recipe.totalTime,
-                          healthLabels: recipe.healthLabels,
-                          cautions: recipe.cautions
-                        }
-                      }}
-                    >
-                      View Recipe
-                    </Link>
-                  }
-                  deleteRecipe={() => {
-                    this.deleteRecipe(recipe.id);
-                  }}
-                />
-              </Grid.Column>
-            );
-          })}
-        </Grid>
+        <>
+          <h1 style={{ textAlign: 'center' }}>
+            {username.length ? `${username}'s Saved Recipes` : null}
+          </h1>
+          <Grid
+            columns={3}
+            stackable
+            centered
+            container
+            style={{ height: '80vh', marginTop: '3rem' }}
+          >
+            {savedRecipes.map((recipe, index) => {
+              return (
+                <Grid.Column key={index} width={5}>
+                  <RecipeCard
+                    key={index}
+                    image={recipe.image}
+                    header={recipe.label}
+                    meta={recipe.source}
+                    link={
+                      <Link
+                        to={{
+                          pathname: `/recipe/${recipe.id}`,
+                          state: {
+                            id: recipe.id,
+                            label: recipe.label,
+                            image: recipe.image,
+                            source: recipe.source,
+                            url: recipe.url,
+                            servings: recipe.servings,
+                            dietLabels: recipe.dietlabels,
+                            ingredientLines: recipe.ingredientLines,
+                            calories: recipe.calories,
+                            totalTime: recipe.totalTime,
+                            healthLabels: recipe.healthLabels,
+                            cautions: recipe.cautions
+                          }
+                        }}
+                      >
+                        View Recipe
+                      </Link>
+                    }
+                    deleteRecipe={() => {
+                      this.deleteRecipe(recipe.id);
+                    }}
+                  />
+                </Grid.Column>
+              );
+            })}
+          </Grid>
+        </>
       );
     } else {
       return <NotAuthedModal />;
