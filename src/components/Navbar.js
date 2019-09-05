@@ -1,63 +1,25 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Menu } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import 'firebase/auth';
 
-class Navbar extends Component {
-  state = { activeItem: 'home' };
-
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name });
-
-  render() {
-    const { activeItem } = this.state;
-
-    return (
-      <Menu pointing secondary>
-        <Menu.Item
-          name="home"
-          active={activeItem === 'home'}
-          onClick={this.handleItemClick}
-          as={Link}
-          to="/"
-        />
-        <Menu.Item
-          name="saved-recipes"
-          active={activeItem === 'saved-recipes'}
-          onClick={this.handleItemClick}
-          as={Link}
-          to="/saved-recipes"
-        />
-        <Menu.Menu position="right">
-          {this.props.auth === false ? (
-            <>
-              <Menu.Item
-                name="signup"
-                active={activeItem === 'signup'}
-                onClick={this.handleItemClick}
-                as={Link}
-                to="/signup"
-              />
-              <Menu.Item
-                name="login"
-                active={activeItem === 'login'}
-                onClick={this.handleItemClick}
-                as={Link}
-                to="/login"
-              />
-            </>
-          ) : (
-            <Menu.Item
-              name="logout"
-              active={activeItem === 'logout'}
-              onClick={this.handleItemClick}
-              as={Link}
-              to="/logout"
-            />
-          )}
-        </Menu.Menu>
-      </Menu>
-    );
-  }
-}
+const Navbar = ({ auth }) => {
+  return (
+    <Menu pointing secondary>
+      <Menu.Item name="home" as={NavLink} exact to="/" />
+      <Menu.Item name="saved-recipes" as={NavLink} to="/saved-recipes" />
+      <Menu.Menu position="right">
+        {auth === false ? (
+          <>
+            <Menu.Item name="signup" as={NavLink} to="/signup" />
+            <Menu.Item name="login" as={NavLink} to="/login" />
+          </>
+        ) : (
+          <Menu.Item name="logout" as={NavLink} to="/logout" />
+        )}
+      </Menu.Menu>
+    </Menu>
+  );
+};
 
 export default Navbar;
