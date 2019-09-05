@@ -5,7 +5,6 @@ import LoadingScreen from '../LoadingScreen';
 import { PATH, APP_ID, API_KEY } from '../../utils/edamam-api-info';
 import { Grid, Button } from 'semantic-ui-react';
 import axios from 'axios';
-// import firebase from '../../firebase/config';
 
 class HomePage extends Component {
   state = {
@@ -60,6 +59,7 @@ class HomePage extends Component {
     await this.setState(prevState => ({
       ...prevState,
       toParameter: this.state.toParameter + 12
+      // loading: true
     }));
     await this.getData();
   };
@@ -87,7 +87,7 @@ class HomePage extends Component {
                 style={{ margin: '2rem 0 1rem 0' }}
                 onClick={this.handleToParameter}
               >
-                Load more recipes ...
+                Load more recipes
               </Button>
             </Grid>
           </>
