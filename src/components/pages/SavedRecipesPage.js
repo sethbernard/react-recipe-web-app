@@ -5,35 +5,36 @@ import RecipeCard from '../RecipeCard';
 import LoadingScreen from '../LoadingScreen';
 import NotAuthedModal from '../NotAuthedModal';
 import firebase from '../../firebase/config';
-import 'firebase/firestore';
-import 'firebase/auth';
 
 class SavedRecipesPage extends Component {
-  state = { savedRecipes: [], loading: true, username: '' };
+  state = { savedRecipes: [], loading: true, username: '', error: null };
 
   // Get reference to user recipes
   getSavedRecipesRef = user => {
-    return firebase
-      .firestore()
+    const db = firebase.firestore();
+    return db
       .collection('userrecipes')
       .where('userId', '==', user.uid)
       .get();
   };
 
   // Delete user recipe document by id
+  deleteRecipe = async id => {
+    try {
+      const db = await firebase.firestore();
+      await db
+        .collection('userrecipes')
+        .doc(id)
+        .delete();
 
-  deleteRecipe = id => {
-    const db = firebase.firestore();
-    db.collection('userrecipes')
-      .doc(id)
-      .delete()
-      .then(() => {
-        // Filter out the deleted recipe and save the updated recipes to state
-        let savedRecipes = this.state.savedRecipes.filter(recipe => {
-          return recipe.id !== id;
-        });
-        this.setState({ savedRecipes });
+      let savedRecipes = await this.state.savedRecipes.filter(recipe => {
+        return recipe.id !== id; // Filter out the deleted recipe and save the updated recipes to state
       });
+      await this.setState({ ...this.state, savedRecipes });
+    } catch (error) {
+      this.setState({ ...this.state, error });
+      console.error(error);
+    }
   };
 
   saveUserRecipesToState = () => {
@@ -51,8 +52,9 @@ class SavedRecipesPage extends Component {
               });
             });
           })
-          .catch(err => {
-            console.error(err);
+          .catch(error => {
+            this.setState({ ...this.state, error });
+            console.error(error);
           });
       } else {
         this.setState({ loading: false });
@@ -82,7 +84,9 @@ class SavedRecipesPage extends Component {
       return (
         <>
           <h1 style={{ textAlign: 'center' }}>
-            {username.length ? `${username}'s Saved Recipes` : null}
+            {username.length
+              ? `${username} has ${savedRecipes.length} Saved Recipes`
+              : null}
           </h1>
           <Grid
             columns={3}
@@ -133,7 +137,7 @@ class SavedRecipesPage extends Component {
         </>
       );
     } else {
-      return <NotAuthedModal />;
+      return <NotAuthedModal />; // fix
     }
   }
 }
