@@ -65,20 +65,18 @@ class HomePage extends Component {
   };
 
   render() {
+    const { recipes, loading } = this.state;
     return (
       <div>
         <RecipeSearch
           onChange={this.handleChange}
           onSubmit={this.handleSubmit}
         />
-        {this.state.loading ? (
+        {loading ? (
           <LoadingScreen />
         ) : (
           <>
-            <RecipeCards
-              recipes={this.state.recipes}
-              loading={this.state.loading}
-            />
+            <RecipeCards recipes={recipes} loading={loading} />
 
             <Grid centered container>
               <Button

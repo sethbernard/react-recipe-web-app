@@ -37,7 +37,11 @@ class App extends Component {
         <BrowserRouter>
           <Navbar auth={userAuthenticated} />
           <Switch>
-            <Route exact path="/" component={HomePage} />
+            <Route
+              exact
+              path="/"
+              render={props => <HomePage {...props} auth={userAuthenticated} />}
+            />
             <Route
               path="/saved-recipes"
               render={props => (
