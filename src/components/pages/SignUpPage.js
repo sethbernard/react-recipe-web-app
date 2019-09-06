@@ -55,7 +55,7 @@ class SignUpPage extends Component {
       >
         <Grid.Column style={{ maxWidth: 450 }}>
           <Header as="h2" color="blue" textAlign="center">
-            Sign-up for your account
+            Sign up for your account
           </Header>
           <Form
             size="large"
@@ -69,6 +69,7 @@ class SignUpPage extends Component {
                 iconPosition="left"
                 placeholder="Username"
                 name="displayName"
+                autoComplete="displayName"
                 onChange={this.handleChange}
               />
               <Form.Input
@@ -77,6 +78,7 @@ class SignUpPage extends Component {
                 iconPosition="left"
                 placeholder="E-mail address"
                 name="email"
+                autoComplete="email"
                 onChange={this.handleChange}
               />
               <Form.Input
@@ -86,6 +88,7 @@ class SignUpPage extends Component {
                 placeholder="Password"
                 type="password"
                 name="password"
+                autoComplete="password"
                 onChange={this.handleChange}
               />
               <Form.Input
@@ -95,6 +98,7 @@ class SignUpPage extends Component {
                 placeholder="Confirm Password"
                 type="password"
                 name="passwordTwo"
+                autoComplete="passwordTwo"
                 onChange={this.handleChange}
               />
               <Button

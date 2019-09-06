@@ -49,6 +49,7 @@ class LoginPage extends Component {
                 iconPosition="left"
                 placeholder="E-mail address"
                 name="email"
+                autoComplete="email"
                 onChange={this.handleChange}
               />
               <Form.Input
@@ -58,6 +59,7 @@ class LoginPage extends Component {
                 placeholder="Password"
                 type="password"
                 name="password"
+                autoComplete="password"
                 onChange={this.handleChange}
               />
               <Button
