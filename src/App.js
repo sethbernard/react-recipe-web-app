@@ -14,20 +14,27 @@ import Recipe from './components/Recipe';
 import Footer from './components/Footer';
 
 class App extends Component {
+  _isMounted = false;
+
   state = {
     userAuthenticated: false
   };
 
   componentDidMount = () => {
+    this._isMounted = true;
     // Check to see if a user is authenticated
     firebase.auth().onAuthStateChanged(user => {
-      if (user) {
+      if (user && this._isMounted) {
         this.setState({ ...this.state, userAuthenticated: true });
       } else {
         this.setState({ userAuthenticated: false });
         console.log('No user is signed in');
       }
     });
+  };
+
+  componentWillUnmount = () => {
+    this._isMounted = false;
   };
 
   render() {
@@ -40,13 +47,11 @@ class App extends Component {
             <Route
               exact
               path="/"
-              render={props => <HomePage {...props} auth={userAuthenticated} />}
+              render={() => <HomePage auth={userAuthenticated} />}
             />
             <Route
               path="/saved-recipes"
-              render={props => (
-                <SavedRecipesPage {...props} auth={userAuthenticated} />
-              )}
+              render={() => <SavedRecipesPage auth={userAuthenticated} />}
             />
             <Route path="/login" component={LoginPage} />
             <Route path="/signup" component={SignUpPage} />

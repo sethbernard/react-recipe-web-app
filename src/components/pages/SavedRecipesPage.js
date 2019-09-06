@@ -7,6 +7,7 @@ import NotAuthedModal from '../NotAuthedModal';
 import firebase from '../../firebase/config';
 
 class SavedRecipesPage extends Component {
+  _isMounted = false;
   state = { savedRecipes: [], loading: true, username: '', error: null };
 
   // Get reference to user recipes
@@ -63,14 +64,18 @@ class SavedRecipesPage extends Component {
   };
 
   componentDidMount = () => {
-    if (!this.state.savedRecipes.length) {
+    this._isMounted = true;
+
+    if (!this.state.savedRecipes.length && this._isMounted) {
       this.setState({
         loading: false
       });
-      this.saveUserRecipesToState();
-    } else {
-      this.saveUserRecipesToState();
     }
+    this.saveUserRecipesToState();
+  };
+
+  componentWillUnmount = () => {
+    this._isMounted = false;
   };
 
   render() {
