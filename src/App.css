@@ -2,4 +2,7 @@
   .five.wide.column {
     max-width: 290px;
   }
+  .ui.modal > .actions {
+    padding: 1rem !important;
+  }
 }

@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 
 const RecipeCard = ({ ...props }) => {
   return (
-    <Card>
+    <Card raised>
       <Image src={props.image} />
       <Card.Content>
         <Card.Header>{props.header}</Card.Header>

@@ -85,7 +85,7 @@ class HomePage extends Component {
                 style={{ margin: '2rem 0 1rem 0' }}
                 onClick={this.handleToParameter}
               >
-                Load more recipes
+                Load more
               </Button>
             </Grid>
           </>

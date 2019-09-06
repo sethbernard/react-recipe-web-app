@@ -6,8 +6,10 @@ import 'firebase/auth';
 const Navbar = ({ auth }) => {
   return (
     <Menu pointing secondary>
-      <Menu.Item name="home" as={NavLink} exact to="/" />
-      <Menu.Item name="saved-recipes" as={NavLink} to="/saved-recipes" />
+      <Menu.Menu>
+        <Menu.Item name="home" as={NavLink} exact to="/" />
+        <Menu.Item name="saved-recipes" as={NavLink} to="/saved-recipes" />
+      </Menu.Menu>
       <Menu.Menu position="right">
         {auth === false ? (
           <>
