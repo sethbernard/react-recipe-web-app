@@ -5,10 +5,11 @@ import RecipeImage from './RecipeImage';
 import HealthLabels from './HealthLabels';
 import IngredientsList from './IngredientsList';
 import DietLabels from './DietLabels';
-import CautionLabels from './pages/CautionLabels';
+import CautionLabels from './CautionLabels';
 import ExternalLink from './ExternalLink';
 import SaveRecipeButton from './SaveRecipeButton';
-import { Grid, Image } from 'semantic-ui-react';
+import NotAuthedModal from './NotAuthedModal';
+import { Grid } from 'semantic-ui-react';
 import firebase from '../firebase/config';
 
 const Recipe = props => {
@@ -23,6 +24,7 @@ const Recipe = props => {
     try {
       const user = await firebase.auth().currentUser;
       const db = await firebase.firestore();
+
       await db
         .collection('userrecipes')
         .doc(recipeData.id) // Add a new document in collection
@@ -32,7 +34,8 @@ const Recipe = props => {
           ...recipeData
         });
     } catch (error) {
-      console.error(error);
+      console.log(error);
+      return <NotAuthedModal />;
     }
   };
 
