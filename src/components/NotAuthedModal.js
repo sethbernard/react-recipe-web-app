@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Grid, Button, Modal } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 class NotAuthedModal extends Component {
   state = { open: true };
@@ -11,6 +11,7 @@ class NotAuthedModal extends Component {
 
   closeModal = () => {
     this.setState({ open: false });
+    this.props.history.push('/login');
   };
 
   componentDidMount = () => {
@@ -56,4 +57,4 @@ class NotAuthedModal extends Component {
   }
 }
 
-export default NotAuthedModal;
+export default withRouter(NotAuthedModal);
