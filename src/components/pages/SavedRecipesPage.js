@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import { Grid } from 'semantic-ui-react';
+import { Grid, Button } from 'semantic-ui-react';
 import RecipeCard from '../RecipeCard';
 import LoadingScreen from '../LoadingScreen';
 import NotAuthedModal from '../NotAuthedModal';
@@ -32,6 +32,29 @@ class SavedRecipesPage extends Component {
         return recipe.id !== id; // Filter out the deleted recipe and save the updated recipes to state
       });
       await this.setState({ ...this.state, savedRecipes });
+    } catch (error) {
+      this.setState({ ...this.state, error });
+      console.error(error);
+    }
+  };
+
+  // Delete all user recipe documents along with the user
+  deleteUserandRecipes = async () => {
+    try {
+      const user = await firebase.auth().currentUser;
+      const db = await firebase.firestore();
+      const allUserDocsQuery = await db
+        .collection('userrecipes')
+        .where('userId', '==', user.uid);
+
+      allUserDocsQuery.get().then(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          doc.ref.delete();
+        });
+      });
+
+      await user.delete();
+      console.log('User and recipes deleted');
     } catch (error) {
       this.setState({ ...this.state, error });
       console.error(error);
@@ -89,9 +112,9 @@ class SavedRecipesPage extends Component {
       return (
         <>
           <h1 style={{ textAlign: 'center' }}>
-            {username.length
+            {username && savedRecipes.length
               ? `${username} has ${savedRecipes.length} Saved Recipes`
-              : null}
+              : `You have 0 Saved Recipes`}
           </h1>
           <Grid
             columns={3}
@@ -139,10 +162,13 @@ class SavedRecipesPage extends Component {
               );
             })}
           </Grid>
+          {/* <Button onClick={() => this.deleteUserandRecipes()}>
+            Delete Your Account
+          </Button> */}
         </>
       );
     } else {
-      return <NotAuthedModal />; // fix
+      return <NotAuthedModal />;
     }
   }
 }
