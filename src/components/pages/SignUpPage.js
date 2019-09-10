@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import firebase from '../../firebase/config';
 import 'firebase/auth';
+import * as EmailValidator from 'email-validator';
 import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react';
 
 class SignUpPage extends Component {
@@ -33,13 +34,16 @@ class SignUpPage extends Component {
     }
   };
 
-  // Very simple form validation
+  // Very simple sign up form validation
   isInvalid = () => {
     const { email, password, passwordTwo } = this.state;
-    if (email === '' || password === '') {
+    if (!EmailValidator.validate(email)) {
       return true;
     }
     if (password !== passwordTwo) {
+      return true;
+    }
+    if (password.length < 7) {
       return true;
     }
   };
@@ -85,7 +89,7 @@ class SignUpPage extends Component {
                 fluid
                 icon="lock"
                 iconPosition="left"
-                placeholder="Password"
+                placeholder="Password - 7 or more characters"
                 type="password"
                 name="password"
                 autoComplete="password"
