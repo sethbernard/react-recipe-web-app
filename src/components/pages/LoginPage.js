@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import firebase from '../../firebase/config';
-import 'firebase/auth';
+import { auth } from '../../firebase/config';
 import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react';
 
 class LoginPage extends Component {
@@ -18,7 +17,8 @@ class LoginPage extends Component {
   handleLogIn = async () => {
     const { email, password } = this.state;
     try {
-      await firebase.auth().signInWithEmailAndPassword(email, password);
+      // await firebase.auth().signInWithEmailAndPassword(email, password);
+      await auth.signInWithEmailAndPassword(email, password);
       await this.props.history.push('/'); // redirect authenticated user to home page
     } catch (error) {
       this.setState({ error });
@@ -62,12 +62,7 @@ class LoginPage extends Component {
                 autoComplete="password"
                 onChange={this.handleChange}
               />
-              <Button
-                color="blue"
-                fluid
-                size="large"
-                //disabled={this.isInvalid()}
-              >
+              <Button color="blue" fluid size="large">
                 Log In
               </Button>
             </Segment>

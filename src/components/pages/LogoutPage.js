@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { Button, Modal } from 'semantic-ui-react';
-import firebase from '../../firebase/config';
-import 'firebase/auth';
+import { auth } from '../../firebase/config';
 
 class LogoutPage extends Component {
   state = { open: true };
@@ -16,7 +15,7 @@ class LogoutPage extends Component {
   };
 
   logOut = () => {
-    firebase.auth().signOut();
+    auth.signOut();
     this.props.history.push('/');
   };
 
@@ -38,7 +37,7 @@ class LogoutPage extends Component {
             <p>Are you sure you want to log out of your account?</p>
           </Modal.Content>
           <Modal.Actions>
-            <Button positive onClick={this.logOut}>
+            <Button positive onClick={() => this.logOut()}>
               Yes
             </Button>
             <Link to="/saved-recipes">

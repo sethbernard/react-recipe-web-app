@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import firebase from '../../firebase/config';
-import 'firebase/auth';
-import * as EmailValidator from 'email-validator';
 import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react';
+import { auth } from '../../firebase/config';
+import * as EmailValidator from 'email-validator';
 
 class SignUpPage extends Component {
   state = {
@@ -22,12 +21,10 @@ class SignUpPage extends Component {
   handleSignUp = async e => {
     e.preventDefault();
     const { email, password, displayName } = this.state;
-    const auth = firebase.auth();
 
     try {
       await auth.createUserWithEmailAndPassword(email, password);
-      const user = await firebase.auth().currentUser;
-      await user.updateProfile({ displayName }); // Add displayName to firestore
+      await auth.currentUser.updateProfile({ displayName }); // Add displayName to firestore
       await this.props.history.push('/'); // redirect authenticated user to home page
     } catch (error) {
       this.setState({ error });

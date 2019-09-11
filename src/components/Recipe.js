@@ -10,7 +10,7 @@ import ExternalLink from './ExternalLink';
 import SaveRecipeButton from './SaveRecipeButton';
 import NotAuthedModal from './NotAuthedModal';
 import { Grid } from 'semantic-ui-react';
-import firebase from '../firebase/config';
+import { auth, db } from '../firebase/config';
 
 const Recipe = props => {
   useEffect(() => {
@@ -22,9 +22,7 @@ const Recipe = props => {
   // Save recipe id to database for logged in user
   const handleSaveRecipe = async recipeData => {
     try {
-      const user = await firebase.auth().currentUser;
-      const db = await firebase.firestore();
-
+      const user = await auth.currentUser;
       await db
         .collection('userrecipes')
         .doc(recipeData.id) // Add a new document in collection

@@ -5,6 +5,7 @@ import RecipeCard from '../RecipeCard';
 import LoadingScreen from '../LoadingScreen';
 import NotAuthedModal from '../NotAuthedModal';
 import firebase from '../../firebase/config';
+import { auth, db } from '../../firebase/config';
 
 class SavedRecipesPage extends Component {
   _isMounted = false;
@@ -12,7 +13,6 @@ class SavedRecipesPage extends Component {
 
   // Get reference to user recipes
   getSavedRecipesRef = user => {
-    const db = firebase.firestore();
     return db
       .collection('userrecipes')
       .where('userId', '==', user.uid)
@@ -22,7 +22,6 @@ class SavedRecipesPage extends Component {
   // Delete user recipe document by id
   deleteRecipe = async id => {
     try {
-      const db = await firebase.firestore();
       await db
         .collection('userrecipes')
         .doc(id)
@@ -41,8 +40,7 @@ class SavedRecipesPage extends Component {
   // Delete all user recipe documents along with the user
   deleteUserandRecipes = async () => {
     try {
-      const user = await firebase.auth().currentUser;
-      const db = await firebase.firestore();
+      const user = auth.currentUser;
       const allUserDocsQuery = await db
         .collection('userrecipes')
         .where('userId', '==', user.uid);
@@ -162,9 +160,9 @@ class SavedRecipesPage extends Component {
               );
             })}
           </Grid>
-          {/* <Button onClick={() => this.deleteUserandRecipes()}>
+          <Button onClick={() => this.deleteUserandRecipes()}>
             Delete Your Account
-          </Button> */}
+          </Button>
         </>
       );
     } else {

@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import 'semantic-ui-css/semantic.min.css';
 import { Route, BrowserRouter, Switch } from 'react-router-dom';
-import firebase from './firebase/config';
-import 'firebase/auth';
+import { auth } from './firebase/config';
 import Navbar from './components/Navbar';
 import HomePage from './components/pages/HomePage';
 import SavedRecipesPage from './components/pages/SavedRecipesPage';
@@ -23,7 +22,7 @@ class App extends Component {
   componentDidMount = () => {
     this._isMounted = true;
     // Check to see if a user is authenticated
-    firebase.auth().onAuthStateChanged(user => {
+    auth.onAuthStateChanged(user => {
       if (user && this._isMounted) {
         this.setState({ ...this.state, userAuthenticated: true });
       } else {
