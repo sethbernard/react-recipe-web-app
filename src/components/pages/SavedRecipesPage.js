@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import { Grid, Button } from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
 import RecipeCard from '../RecipeCard';
 import LoadingScreen from '../LoadingScreen';
 import NotAuthedModal from '../NotAuthedModal';
+import DeleteAccountModal from '../DeleteAccountModal';
 import firebase from '../../firebase/config';
 import { auth, db } from '../../firebase/config';
 
@@ -52,6 +53,7 @@ class SavedRecipesPage extends Component {
       });
 
       await user.delete();
+      await this.props.history.push('/');
       console.log('User and recipes deleted');
     } catch (error) {
       this.setState({ ...this.state, error });
@@ -119,50 +121,50 @@ class SavedRecipesPage extends Component {
             stackable
             centered
             container
-            style={{ height: '80vh', marginTop: '3rem' }}
+            style={{ marginTop: '2rem' }}
           >
-            {savedRecipes.map((recipe, index) => {
-              return (
-                <Grid.Column key={index} width={5}>
-                  <RecipeCard
-                    key={index}
-                    image={recipe.image}
-                    header={recipe.label}
-                    meta={recipe.source}
-                    link={
-                      <Link
-                        to={{
-                          pathname: `/recipe/${recipe.id}`,
-                          state: {
-                            id: recipe.id,
-                            label: recipe.label,
-                            image: recipe.image,
-                            source: recipe.source,
-                            url: recipe.url,
-                            servings: recipe.servings,
-                            dietLabels: recipe.dietlabels,
-                            ingredientLines: recipe.ingredientLines,
-                            calories: recipe.calories,
-                            totalTime: recipe.totalTime,
-                            healthLabels: recipe.healthLabels,
-                            cautions: recipe.cautions
-                          }
-                        }}
-                      >
-                        View Recipe
-                      </Link>
-                    }
-                    deleteRecipe={() => {
-                      this.deleteRecipe(recipe.id);
-                    }}
-                  />
-                </Grid.Column>
-              );
-            })}
+            <Grid.Row stretched>
+              {savedRecipes.map((recipe, index) => {
+                return (
+                  <Grid.Column key={index} width={5}>
+                    <RecipeCard
+                      key={index}
+                      image={recipe.image}
+                      header={recipe.label}
+                      meta={recipe.source}
+                      link={
+                        <Link
+                          to={{
+                            pathname: `/recipe/${recipe.id}`,
+                            state: {
+                              id: recipe.id,
+                              label: recipe.label,
+                              image: recipe.image,
+                              source: recipe.source,
+                              url: recipe.url,
+                              servings: recipe.servings,
+                              dietLabels: recipe.dietlabels,
+                              ingredientLines: recipe.ingredientLines,
+                              calories: recipe.calories,
+                              totalTime: recipe.totalTime,
+                              healthLabels: recipe.healthLabels,
+                              cautions: recipe.cautions
+                            }
+                          }}
+                        >
+                          View Recipe
+                        </Link>
+                      }
+                      deleteRecipe={() => {
+                        this.deleteRecipe(recipe.id);
+                      }}
+                    />
+                  </Grid.Column>
+                );
+              })}
+            </Grid.Row>
+            <DeleteAccountModal delete={this.deleteUserandRecipes} to={'/'} />
           </Grid>
-          <Button onClick={() => this.deleteUserandRecipes()}>
-            Delete Your Account
-          </Button>
         </>
       );
     } else {
