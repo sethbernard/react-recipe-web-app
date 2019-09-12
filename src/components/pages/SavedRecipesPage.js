@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { Grid } from 'semantic-ui-react';
 import RecipeCard from '../RecipeCard';
-import LoadingScreen from '../LoadingScreen';
-import NotAuthedModal from '../NotAuthedModal';
-import DeleteAccountModal from '../DeleteAccountModal';
+import LoadingScreen from '../globals/LoadingScreen';
+import NotAuthedModal from '../modals/NotAuthedModal';
+import DeleteAccountModal from '../modals/DeleteAccountModal';
 import firebase from '../../firebase/config';
 import { auth, db } from '../../firebase/config';
 

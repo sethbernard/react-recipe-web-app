@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
-import './App.css';
 import 'semantic-ui-css/semantic.min.css';
-import { Route, BrowserRouter, Switch } from 'react-router-dom';
-import { auth } from './firebase/config';
-import Navbar from './components/Navbar';
+import './App.css';
+import Navbar from './components/globals/Navbar';
 import HomePage from './components/pages/HomePage';
 import SavedRecipesPage from './components/pages/SavedRecipesPage';
 import LoginPage from './components/pages/LoginPage';
 import SignUpPage from './components/pages/SignUpPage';
 import LogoutPage from './components/pages/LogoutPage';
-import Recipe from './components/Recipe';
-import Footer from './components/Footer';
+import RecipePage from './components/pages/RecipePage';
+import Footer from './components/globals/Footer';
+import { Route, BrowserRouter, Switch } from 'react-router-dom';
+import { auth } from './firebase/config';
 
 class App extends Component {
   _isMounted = false;
@@ -55,7 +55,7 @@ class App extends Component {
             <Route path="/login" component={LoginPage} />
             <Route path="/signup" component={SignUpPage} />
             <Route path="/logout" component={LogoutPage} />
-            <Route path="/recipe/:id" component={Recipe} />
+            <Route path="/recipe/:id" component={RecipePage} />
           </Switch>
         </BrowserRouter>
         <Footer />

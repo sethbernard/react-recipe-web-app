@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import RecipeSearch from '../RecipeSearch';
 import RecipeCards from '../RecipeCards';
-import LoadingScreen from '../LoadingScreen';
+import LoadingScreen from '../globals/LoadingScreen';
 import { PATH, APP_ID, API_KEY } from '../../utils/edamam-api-info';
 import { Grid, Button } from 'semantic-ui-react';
 import axios from 'axios';
