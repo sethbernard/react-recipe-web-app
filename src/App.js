@@ -39,7 +39,7 @@ class App extends Component {
   render() {
     const { userAuthenticated } = this.state;
     return (
-      <>
+      <div>
         <BrowserRouter>
           <Navbar auth={userAuthenticated} />
           <Switch>
@@ -57,9 +57,9 @@ class App extends Component {
             <Route path="/logout" component={LogoutPage} />
             <Route path="/recipe/:id" component={RecipePage} />
           </Switch>
+          <Footer />
         </BrowserRouter>
-        <Footer />
-      </>
+      </div>
     );
   }
 }
