@@ -5,7 +5,17 @@ import 'firebase/auth';
 
 const Navbar = ({ auth }) => {
   return (
-    <Menu pointing secondary>
+    <Menu
+      pointing
+      secondary
+      style={{
+        backgroundColor: '#ffffff',
+        position: 'fixed',
+        top: 0,
+        width: '100%',
+        zIndex: 1
+      }}
+    >
       <Menu.Menu>
         <Menu.Item name="home" as={NavLink} exact to="/" />
         <Menu.Item name="saved-recipes" as={NavLink} to="/saved-recipes" />

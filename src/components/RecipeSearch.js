@@ -3,7 +3,7 @@ import { Button, Form, Grid, Segment } from 'semantic-ui-react';
 
 const RecipeSearch = ({ onChange, onSubmit }) => {
   return (
-    <Grid columns={1} style={{ marginTop: '2rem' }}>
+    <Grid columns={1}>
       <Grid.Row centered>
         <Grid.Column mobile={10} tablet={8} computer={6}>
           <Segment padded="very" raised>
@@ -12,7 +12,11 @@ const RecipeSearch = ({ onChange, onSubmit }) => {
                 <label>What do you want to eat?</label>
                 <input placeholder="Ex: Pulled Pork" onChange={onChange} />
               </Form.Field>
-              <Button type="submit" color="blue" onClick={onSubmit}>
+              <Button
+                type="submit"
+                onClick={onSubmit}
+                style={{ backgroundColor: '#09186A', color: '#fff' }}
+              >
                 Submit
               </Button>
             </Form>

@@ -3,7 +3,7 @@ import RecipeSearch from '../RecipeSearch';
 import RecipeCards from '../RecipeCards';
 import LoadingScreen from '../globals/LoadingScreen';
 import { PATH, APP_ID, API_KEY } from '../../utils/edamam-api-info';
-import { Grid, Button } from 'semantic-ui-react';
+import { Grid, Header, Button } from 'semantic-ui-react';
 import axios from 'axios';
 
 class HomePage extends Component {
@@ -67,7 +67,18 @@ class HomePage extends Component {
   render() {
     const { recipes, loading } = this.state;
     return (
-      <div>
+      <div className="main">
+        <Header
+          as="h1"
+          style={{
+            textAlign: 'center',
+            marginTop: '4rem',
+            letterSpacing: '3px',
+            color: '#09186A'
+          }}
+        >
+          RECIPE APP
+        </Header>
         <RecipeSearch
           onChange={this.handleChange}
           onSubmit={this.handleSubmit}
@@ -81,8 +92,12 @@ class HomePage extends Component {
             <Grid centered container>
               <Button
                 size="large"
-                color="blue"
-                style={{ margin: '2rem 0 1rem 0' }}
+                style={{
+                  margin: '2rem 0 1rem 0',
+                  backgroundColor: '#09186A',
+                  color: '#fff',
+                  border: '2px solid rgba(34,36,38,.15)'
+                }}
                 onClick={this.handleToParameter}
               >
                 Load more

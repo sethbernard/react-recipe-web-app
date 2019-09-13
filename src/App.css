@@ -1,5 +1,20 @@
+body {
+  background-color: #b5d6ec;
+}
+
+.ui.secondary.pointing.menu .active.item {
+  color: #09186a;
+  border-bottom-color: #09186a;
+}
+
 .trash:hover {
   color: #b03060;
+}
+
+.stickyFooter {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 }
 
 @media (max-width: 767px) {

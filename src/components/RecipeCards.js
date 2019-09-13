@@ -53,7 +53,7 @@ const RecipeCards = ({ recipes }) => {
                       }
                     }}
                   >
-                    View Recipe
+                    View Info
                   </Link>
                 }
               />

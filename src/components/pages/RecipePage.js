@@ -38,7 +38,7 @@ const RecipePage = props => {
   };
 
   return (
-    <Grid columns={2} stackable container>
+    <Grid columns={2} stackable container style={{ marginTop: '3rem' }}>
       <Grid.Column size={12}>
         <RecipeHeader header={recipeData.label} />
         <TimeServingsCalories

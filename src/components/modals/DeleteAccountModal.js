@@ -4,7 +4,12 @@ import { Button, Modal } from 'semantic-ui-react';
 
 const DeleteAccountModal = props => {
   return (
-    <div style={{ alignContent: 'flex-end', marginTop: '8rem' }}>
+    <div
+      style={{
+        alignContent: 'flex-end',
+        margin: '8rem 0'
+      }}
+    >
       <Modal
         trigger={<Button color={'red'}>Delete Your Account</Button>}
         size="small"
