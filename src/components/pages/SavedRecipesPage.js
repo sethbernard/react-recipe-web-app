@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import { Grid } from 'semantic-ui-react';
+import { Grid, Segment } from 'semantic-ui-react';
 import RecipeCard from '../RecipeCard';
 import LoadingScreen from '../globals/LoadingScreen';
 import NotAuthedModal from '../modals/NotAuthedModal';
@@ -111,17 +111,23 @@ class SavedRecipesPage extends Component {
     if (!loading && this.props.auth) {
       return (
         <>
-          <h1 style={{ textAlign: 'center' }}>
-            {username && savedRecipes.length
-              ? `${username} has ${savedRecipes.length} Saved Recipes`
-              : `You have 0 Saved Recipes`}
-          </h1>
+          <Grid centered style={{ marginTop: '4rem' }}>
+            <Grid.Column mobile={10} tablet={8} computer={6}>
+              <Segment raised>
+                <h1 style={{ textAlign: 'center' }}>
+                  {username && savedRecipes.length
+                    ? `${username} has ${savedRecipes.length} Saved Recipes`
+                    : `You have 0 Saved Recipes`}
+                </h1>
+              </Segment>
+            </Grid.Column>
+          </Grid>
           <Grid
             columns={3}
             stackable
             centered
             container
-            style={{ marginTop: '2rem' }}
+            style={{ marginTop: '1rem' }}
           >
             <Grid.Row stretched>
               {savedRecipes.map((recipe, index) => {
@@ -152,7 +158,7 @@ class SavedRecipesPage extends Component {
                             }
                           }}
                         >
-                          View Recipe
+                          View Info
                         </Link>
                       }
                       deleteRecipe={() => {
