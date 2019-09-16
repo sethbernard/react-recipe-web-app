@@ -5,7 +5,7 @@ const RecipeSearch = ({ onChange, onSubmit }) => {
   return (
     <Grid columns={1}>
       <Grid.Row centered>
-        <Grid.Column mobile={10} tablet={8} computer={6}>
+        <Grid.Column mobile={12} tablet={8} computer={6}>
           <Segment padded="very" raised>
             <Form>
               <Form.Field>
