@@ -86,7 +86,7 @@ class SavedRecipesPage extends Component {
 
     if (!loading && this.props.auth) {
       return (
-        <>
+        <div style={{ minHeight: '100vh' }}>
           <Grid centered style={{ marginTop: '4rem' }}>
             <Grid.Column mobile={10} tablet={8} computer={6}>
               <Segment raised>
@@ -146,7 +146,7 @@ class SavedRecipesPage extends Component {
               })}
             </Grid.Row>
           </Grid>
-        </>
+        </div>
       );
     } else {
       return <NotAuthedModal />;
