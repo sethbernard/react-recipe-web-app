@@ -7,13 +7,13 @@ const DeleteAccountModal = props => {
     <div
       style={{
         alignContent: 'flex-end',
-        margin: '8rem 0'
+        margin: '1rem 0'
       }}
     >
-      <Modal
-        trigger={<Button color={'red'}>Delete Your Account</Button>}
-        size="small"
-      >
+      <Button onClick={() => props.onClick()} size="mini">
+        Delete Your Account
+      </Button>
+      <Modal open={props.open} onClose={props.onClose} size="small">
         <Modal.Header>Delete Account</Modal.Header>
         <Modal.Content>
           <p>
@@ -26,7 +26,9 @@ const DeleteAccountModal = props => {
             Yes
           </Button>
           <Link to={props.to}>
-            <Button negative>No</Button>
+            <Button onClick={props.onClose} negative>
+              No
+            </Button>
           </Link>
         </Modal.Actions>
       </Modal>
