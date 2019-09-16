@@ -4,9 +4,8 @@ import { Grid, Segment } from 'semantic-ui-react';
 import RecipeCard from '../RecipeCard';
 import LoadingScreen from '../globals/LoadingScreen';
 import NotAuthedModal from '../modals/NotAuthedModal';
-import DeleteAccountModal from '../modals/DeleteAccountModal';
 import firebase from '../../firebase/config';
-import { auth, db } from '../../firebase/config';
+import { db } from '../../firebase/config';
 
 class SavedRecipesPage extends Component {
   _isMounted = false;
@@ -32,29 +31,6 @@ class SavedRecipesPage extends Component {
         return recipe.id !== id; // Filter out the deleted recipe and save the updated recipes to state
       });
       await this.setState({ ...this.state, savedRecipes });
-    } catch (error) {
-      this.setState({ ...this.state, error });
-      console.error(error);
-    }
-  };
-
-  // Delete all user recipe documents along with the user
-  deleteUserandRecipes = async () => {
-    try {
-      const user = auth.currentUser;
-      const allUserDocsQuery = await db
-        .collection('userrecipes')
-        .where('userId', '==', user.uid);
-
-      allUserDocsQuery.get().then(querySnapshot => {
-        querySnapshot.forEach(doc => {
-          doc.ref.delete();
-        });
-      });
-
-      await user.delete();
-      await this.props.history.push('/');
-      console.log('User and recipes deleted');
     } catch (error) {
       this.setState({ ...this.state, error });
       console.error(error);
@@ -169,7 +145,6 @@ class SavedRecipesPage extends Component {
                 );
               })}
             </Grid.Row>
-            <DeleteAccountModal delete={this.deleteUserandRecipes} to={'/'} />
           </Grid>
         </>
       );
