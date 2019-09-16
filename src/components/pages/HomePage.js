@@ -17,7 +17,6 @@ class HomePage extends Component {
 
   componentDidMount() {
     this.getData();
-    // console.log(firebase.auth().currentUser);
   }
 
   // Get recipes for the recipe search term
@@ -67,17 +66,28 @@ class HomePage extends Component {
   render() {
     const { recipes, loading } = this.state;
     return (
-      <div className="main">
+      <div>
         <Header
           as="h1"
           style={{
             textAlign: 'center',
-            marginTop: '4rem',
+            margin: '4rem 0 0',
             letterSpacing: '3px',
-            color: '#09186A'
+            color: '#09186A',
+            fontSize: '42px'
           }}
         >
-          RECIPE APP
+          <strong>PALATE</strong>
+        </Header>
+        <Header
+          as="h3"
+          style={{
+            textAlign: 'center',
+            marginTop: '.25rem',
+            fontStyle: 'italic'
+          }}
+        >
+          A recipe app
         </Header>
         <RecipeSearch
           onChange={this.handleChange}

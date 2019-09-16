@@ -9,7 +9,7 @@ const Navbar = ({ auth }) => {
       pointing
       secondary
       style={{
-        backgroundColor: '#ffffff',
+        backgroundColor: '#fff',
         position: 'fixed',
         top: 0,
         width: '100%',
@@ -23,8 +23,8 @@ const Navbar = ({ auth }) => {
       <Menu.Menu position="right">
         {auth === false ? (
           <>
-            <Menu.Item name="signup" as={NavLink} to="/signup" />
             <Menu.Item name="login" as={NavLink} to="/login" />
+            <Menu.Item name="signup" as={NavLink} to="/signup" />
           </>
         ) : (
           <Menu.Item name="logout" as={NavLink} to="/logout" />
