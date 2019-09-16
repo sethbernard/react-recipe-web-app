@@ -49,13 +49,9 @@ class SignUpPage extends Component {
     const { error } = this.state;
 
     return (
-      <Grid
-        textAlign="center"
-        style={{ height: '75vh' }}
-        verticalAlign="middle"
-      >
+      <Grid textAlign="center" verticalAlign="middle">
         <Grid.Column style={{ maxWidth: 450 }}>
-          <Header as="h1" textAlign="center">
+          <Header as="h1" textAlign="center" style={{ marginTop: '1rem' }}>
             Sign up for your account
           </Header>
           <Form

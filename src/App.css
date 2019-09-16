@@ -1,3 +1,7 @@
+#root {
+  overflow-x: hidden;
+}
+
 body {
   background-color: #cae1f3;
 }
