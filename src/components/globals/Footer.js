@@ -41,12 +41,8 @@ class Footer extends Component {
   handleClassName = () => {
     const { pathname } = this.props.location;
 
-    if (
-      pathname === '/' ||
-      pathname === '/saved-recipes' ||
-      pathname === 'recipe/:id'
-    ) {
-      return;
+    if (pathname === '/' || pathname === 'recipe/:id') {
+      return '';
     } else {
       return 'stickyFooter';
     }
@@ -57,14 +53,13 @@ class Footer extends Component {
     return (
       <footer
         style={{
-          flexShrink: 0,
           marginTop: '4rem',
           padding: '1rem',
           borderTop: '2px solid rgba(34,36,38,.15)',
           textAlign: 'center',
           backgroundColor: '#fff'
         }}
-        className={this.handleClassName}
+        className={this.handleClassName()}
       >
         <p>
           Developed by
