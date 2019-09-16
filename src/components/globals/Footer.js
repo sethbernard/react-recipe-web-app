@@ -1,30 +1,81 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
+import '../../App.css';
+import DeleteAccountModal from '../modals/DeleteAccountModal';
+import { auth, db } from '../../firebase/config';
 
-const Footer = () => {
-  return (
-    <footer
-      style={{
-        flexShrink: 0,
-        marginTop: '4rem',
-        padding: '1rem',
-        borderTop: '2px solid rgba(34,36,38,.15)',
-        textAlign: 'center'
-      }}
-    >
-      <p>
-        Developed by
-        <a
-          href="https://github.com/sethbernard"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          {' '}
-          Seth Bernard
-        </a>
-      </p>
-      <div id="edamam-badge" data-color="white" />
-    </footer>
-  );
-};
+class Footer extends Component {
+  state = { open: false };
 
-export default Footer;
+  showModal = () => {
+    this.setState({ open: true });
+  };
+
+  closeModal = () => {
+    this.setState({ open: false });
+  };
+
+  // Delete all user recipe documents along with the user
+  deleteUserandRecipes = async () => {
+    try {
+      const user = auth.currentUser;
+      const allUserDocsQuery = await db
+        .collection('userrecipes')
+        .where('userId', '==', user.uid);
+
+      allUserDocsQuery.get().then(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          doc.ref.delete();
+        });
+      });
+
+      await user.delete();
+      await this.closeModal();
+      await this.props.history.push('/');
+      console.log('User and recipes deleted');
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  render() {
+    const { pathname } = this.props.location;
+    const { open } = this.state;
+    return (
+      <footer
+        style={{
+          flexShrink: 0,
+          marginTop: '4rem',
+          padding: '1rem',
+          borderTop: '2px solid rgba(34,36,38,.15)',
+          textAlign: 'center',
+          backgroundColor: '#fff'
+        }}
+        className={pathname !== '/' ? 'stickyFooter' : null}
+      >
+        <p>
+          Developed by
+          <a
+            href="https://github.com/sethbernard"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {' '}
+            Seth Bernard
+          </a>
+        </p>
+        <div id="edamam-badge" data-color="white" />
+
+        <DeleteAccountModal
+          onClick={this.showModal}
+          delete={this.deleteUserandRecipes}
+          to={'/'}
+          open={open}
+          onClose={this.closeModal}
+        />
+      </footer>
+    );
+  }
+}
+
+export default withRouter(Footer);
