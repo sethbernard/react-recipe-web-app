@@ -38,8 +38,21 @@ class Footer extends Component {
     }
   };
 
-  render() {
+  handleClassName = () => {
     const { pathname } = this.props.location;
+
+    if (
+      pathname === '/' ||
+      pathname === '/saved-recipes' ||
+      pathname === 'recipe/:id'
+    ) {
+      return;
+    } else {
+      return 'stickyFooter';
+    }
+  };
+
+  render() {
     const { open } = this.state;
     return (
       <footer
@@ -51,7 +64,7 @@ class Footer extends Component {
           textAlign: 'center',
           backgroundColor: '#fff'
         }}
-        className={pathname !== '/' ? 'stickyFooter' : null}
+        className={this.handleClassName}
       >
         <p>
           Developed by
