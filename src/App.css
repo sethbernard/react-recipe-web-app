@@ -16,8 +16,7 @@ body {
 }
 
 .stickyFooter {
-  position: fixed;
-  bottom: 0;
+  position: static;
   width: 100%;
 }
 
