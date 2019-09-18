@@ -10,23 +10,23 @@ After cloning the repo, run `npm install` in the root directory to get all of th
 
 In order for the app to build correctly in development, you are going to need to get your own environment variables for `Edamam API` and `Firebase`.
 
-Create a `.env` file in the root directory and sign up for a free account on `Edamam` and `Firebase`.
+Create a `.env` file in the root directory and sign up for a free account on `Edamam` and `Firebase` to get your own credentials.
 
 In your `.env` file use these variables with your unique API and database info for `Edamam` and `Firebase`.
 
 **Edamam Info**
 
-`REACT_APP_ID=[Your Edamam App Id]`
+`REACT_APP_ID=[Your Edamam App Id]`</br>
 `REACT_APP_API_KEY=[Your Edamam API Key]`
 
 **Firebase Info**
 
-`REACT_APP_FIREBASE_KEY=[Your Firebase Key]`
-`REACT_APP_AUTH_DOMAIN=[Your Auth Domain]`
-`REACT_APP_DATABASE_URL=[Your Database Url]`
-`REACT_APP_PROJECT_ID=[Your Project Id]`
-`REACT_APP_STORAGE_BUCKET=[Your Storage Bucket]`
-`REACT_APP_MESSAGING_SENDER_ID=[Your Messaging Sender Id]`
+`REACT_APP_FIREBASE_KEY=[Your Firebase Key]`</br>
+`REACT_APP_AUTH_DOMAIN=[Your Auth Domain]`</br>
+`REACT_APP_DATABASE_URL=[Your Database Url]`</br>
+`REACT_APP_PROJECT_ID=[Your Project Id]`</br>
+`REACT_APP_STORAGE_BUCKET=[Your Storage Bucket]`</br>
+`REACT_APP_MESSAGING_SENDER_ID=[Your Messaging Sender Id]`</br>
 `REACT_APP_FIREBASE_ID=[Your Firebase Id]`
 
 ## Available Scripts
