@@ -12,22 +12,16 @@ class SavedRecipesPage extends Component {
   state = { savedRecipes: [], loading: true, username: '', error: null };
 
   // Get reference to user recipes
-  getSavedRecipesRef = user => {
-    return db
-      .collection('userrecipes')
-      .where('userId', '==', user.uid)
-      .get();
+  getSavedRecipesRef = (user) => {
+    return db.collection('userrecipes').where('userId', '==', user.uid).get();
   };
 
   // Delete user recipe document by id
-  deleteRecipe = async id => {
+  deleteRecipe = async (id) => {
     try {
-      await db
-        .collection('userrecipes')
-        .doc(id)
-        .delete();
+      await db.collection('userrecipes').doc(id).delete();
 
-      let savedRecipes = await this.state.savedRecipes.filter(recipe => {
+      let savedRecipes = await this.state.savedRecipes.filter((recipe) => {
         return recipe.id !== id; // Filter out the deleted recipe and save the updated recipes to state
       });
       await this.setState({ ...this.state, savedRecipes });
@@ -39,20 +33,20 @@ class SavedRecipesPage extends Component {
 
   saveUserRecipesToState = () => {
     // Had to use this method or else user was undefined on re-render using const user = firebase.auth().currentUser
-    firebase.auth().onAuthStateChanged(user => {
+    firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         const savedRecipesRef = this.getSavedRecipesRef(user);
         savedRecipesRef
-          .then(querySnapshot => {
-            querySnapshot.forEach(doc => {
+          .then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
               this.setState({
                 savedRecipes: [...this.state.savedRecipes, doc.data()],
                 loading: false,
-                username: user.displayName.toUpperCase()
+                username: user.displayName.toUpperCase(),
               });
             });
           })
-          .catch(error => {
+          .catch((error) => {
             this.setState({ ...this.state, error });
             console.error(error);
           });
@@ -62,12 +56,26 @@ class SavedRecipesPage extends Component {
     });
   };
 
+  handleSavedRecipesTitle = () => {
+    const { username, savedRecipes } = this.state;
+
+    if (username && savedRecipes.length === 1) {
+      return `${username} has ${savedRecipes.length} Saved Recipe`;
+    }
+
+    if (username && savedRecipes.length > 1) {
+      return `${username} has ${savedRecipes.length} Saved Recipes`;
+    } else {
+      return `You have 0 Saved Recipes`;
+    }
+  };
+
   componentDidMount = () => {
     this._isMounted = true;
 
     if (!this.state.savedRecipes.length && this._isMounted) {
       this.setState({
-        loading: false
+        loading: false,
       });
     }
     this.saveUserRecipesToState();
@@ -78,7 +86,7 @@ class SavedRecipesPage extends Component {
   };
 
   render() {
-    const { loading, username, savedRecipes } = this.state;
+    const { loading, savedRecipes } = this.state;
 
     if (loading) {
       return <LoadingScreen />;
@@ -91,9 +99,7 @@ class SavedRecipesPage extends Component {
             <Grid.Column mobile={10} tablet={8} computer={6}>
               <Segment raised>
                 <h1 style={{ textAlign: 'center' }}>
-                  {username && savedRecipes.length
-                    ? `${username} has ${savedRecipes.length} Saved Recipes`
-                    : `You have 0 Saved Recipes`}
+                  {this.handleSavedRecipesTitle()}
                 </h1>
               </Segment>
             </Grid.Column>
@@ -130,8 +136,8 @@ class SavedRecipesPage extends Component {
                               calories: recipe.calories,
                               totalTime: recipe.totalTime,
                               healthLabels: recipe.healthLabels,
-                              cautions: recipe.cautions
-                            }
+                              cautions: recipe.cautions,
+                            },
                           }}
                         >
                           View Info

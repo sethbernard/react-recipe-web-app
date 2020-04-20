@@ -23,8 +23,8 @@ class Footer extends Component {
         .collection('userrecipes')
         .where('userId', '==', user.uid);
 
-      allUserDocsQuery.get().then(querySnapshot => {
-        querySnapshot.forEach(doc => {
+      allUserDocsQuery.get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
           doc.ref.delete();
         });
       });
@@ -57,7 +57,7 @@ class Footer extends Component {
           padding: '1rem',
           borderTop: '2px solid rgba(34,36,38,.15)',
           textAlign: 'center',
-          backgroundColor: '#fff'
+          backgroundColor: '#fff',
         }}
         className={this.handleClassName()}
       >
