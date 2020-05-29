@@ -1,5 +1,6 @@
 {
   "name": "recipe-web-app",
+  "homepage": "https://palate.netlify.app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
