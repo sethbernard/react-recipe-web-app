@@ -22,12 +22,12 @@ class App extends Component {
   componentDidMount = () => {
     this._isMounted = true;
     // Check to see if a user is authenticated
-    auth.onAuthStateChanged(user => {
+    auth.onAuthStateChanged((user) => {
       if (user && this._isMounted) {
         this.setState({ ...this.state, userAuthenticated: true });
       } else {
         this.setState({ userAuthenticated: false });
-        console.log('No user is signed in');
+        // console.log('No user is signed in');
       }
     });
   };
@@ -45,17 +45,17 @@ class App extends Component {
           <Switch>
             <Route
               exact
-              path="/"
+              path='/'
               render={() => <HomePage auth={userAuthenticated} />}
             />
             <Route
-              path="/saved-recipes"
+              path='/saved-recipes'
               render={() => <SavedRecipesPage auth={userAuthenticated} />}
             />
-            <Route path="/login" component={LoginPage} />
-            <Route path="/signup" component={SignUpPage} />
-            <Route path="/logout" component={LogoutPage} />
-            <Route path="/recipe/:id" component={RecipePage} />
+            <Route path='/login' component={LoginPage} />
+            <Route path='/signup' component={SignUpPage} />
+            <Route path='/logout' component={LogoutPage} />
+            <Route path='/recipe/:id' component={RecipePage} />
           </Switch>
           <Footer />
         </BrowserRouter>

@@ -42,7 +42,7 @@ class SavedRecipesPage extends Component {
               this.setState({
                 savedRecipes: [...this.state.savedRecipes, doc.data()],
                 loading: false,
-                username: user.displayName.toUpperCase(),
+                username: user.displayName.toUpperCase()
               });
             });
           })
@@ -60,13 +60,13 @@ class SavedRecipesPage extends Component {
     const { username, savedRecipes } = this.state;
 
     if (username && savedRecipes.length === 1) {
-      return `${username} has ${savedRecipes.length} Saved Recipe`;
+      return `${username} Has ${savedRecipes.length} Saved Recipe`;
     }
 
     if (username && savedRecipes.length > 1) {
-      return `${username} has ${savedRecipes.length} Saved Recipes`;
+      return `${username} Has ${savedRecipes.length} Saved Recipes`;
     } else {
-      return `You have 0 Saved Recipes`;
+      return 'You Have 0 Saved Recipes';
     }
   };
 
@@ -75,7 +75,7 @@ class SavedRecipesPage extends Component {
 
     if (!this.state.savedRecipes.length && this._isMounted) {
       this.setState({
-        loading: false,
+        loading: false
       });
     }
     this.saveUserRecipesToState();
@@ -136,8 +136,8 @@ class SavedRecipesPage extends Component {
                               calories: recipe.calories,
                               totalTime: recipe.totalTime,
                               healthLabels: recipe.healthLabels,
-                              cautions: recipe.cautions,
-                            },
+                              cautions: recipe.cautions
+                            }
                           }}
                         >
                           View Info

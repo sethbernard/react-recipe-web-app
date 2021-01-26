@@ -32,7 +32,7 @@ class Footer extends Component {
       await user.delete();
       await this.closeModal();
       await this.props.history.push('/');
-      console.log('User and recipes deleted');
+      //   console.log('User and recipes deleted');
     } catch (error) {
       console.error(error);
     }
@@ -57,30 +57,32 @@ class Footer extends Component {
           padding: '1rem',
           borderTop: '2px solid rgba(34,36,38,.15)',
           textAlign: 'center',
-          backgroundColor: '#fff',
+          backgroundColor: '#fff'
         }}
         className={this.handleClassName()}
       >
         <p>
           Developed by
           <a
-            href="https://github.com/sethbernard"
-            target="_blank"
-            rel="noopener noreferrer"
+            href='https://github.com/sethbernard'
+            target='_blank'
+            rel='noopener noreferrer'
           >
             {' '}
             Seth Bernard
           </a>
         </p>
-        <div id="edamam-badge" data-color="white" />
+        <div id='edamam-badge' data-color='white' />
 
-        <DeleteAccountModal
-          onClick={this.showModal}
-          delete={this.deleteUserandRecipes}
-          to={'/'}
-          open={open}
-          onClose={this.closeModal}
-        />
+        {auth.currentUser !== null && (
+          <DeleteAccountModal
+            onClick={this.showModal}
+            delete={this.deleteUserandRecipes}
+            to={'/'}
+            open={open}
+            onClose={this.closeModal}
+          />
+        )}
       </footer>
     );
   }
