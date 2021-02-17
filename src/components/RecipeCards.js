@@ -26,6 +26,7 @@ const RecipeCards = ({ recipes }) => {
             'http://www.edamam.com/ontologies/edamam.owl#recipe_', // Make custom ID
             ''
           );
+
           return (
             <Grid.Column key={index} width={5}>
               <RecipeCard

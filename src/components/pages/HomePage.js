@@ -8,7 +8,7 @@ import axios from 'axios';
 
 class HomePage extends Component {
   state = {
-    recipeSearchTerm: 'pulled+pork',
+    recipeSearchTerm: 'chicken+parmesan',
     recipes: [],
     toParameter: 12,
     loading: true,
@@ -27,7 +27,7 @@ class HomePage extends Component {
         `${PATH}?q=${recipeSearchTerm}&app_id=${APP_ID}&app_key=${API_KEY}&to=${toParameter}`
       );
       const recipes = await response.data.hits;
-      await this.setState(prevState => ({
+      await this.setState((prevState) => ({
         ...prevState,
         recipes,
         loading: false
@@ -38,15 +38,15 @@ class HomePage extends Component {
   };
 
   // Set current state to what is in the search box
-  handleChange = e => {
+  handleChange = (e) => {
     this.setState({ recipeSearchTerm: e.target.value });
   };
 
   // Load while data is being fetched and then populate page with recipe cards and their data
-  handleSubmit = async e => {
+  handleSubmit = async (e) => {
     e.preventDefault();
 
-    await this.setState({
+    this.setState({
       loading: true,
       toParameter: 12
     });
@@ -55,7 +55,7 @@ class HomePage extends Component {
 
   // Increase amount of recipe cards being populated on page
   handleToParameter = async () => {
-    await this.setState(prevState => ({
+    this.setState((prevState) => ({
       ...prevState,
       toParameter: this.state.toParameter + 12
       // loading: true
@@ -68,7 +68,7 @@ class HomePage extends Component {
     return (
       <div>
         <Header
-          as="h1"
+          as='h1'
           style={{
             textAlign: 'center',
             margin: '4rem 0 0',
@@ -80,7 +80,7 @@ class HomePage extends Component {
           <strong>PALATE</strong>
         </Header>
         <Header
-          as="h3"
+          as='h3'
           style={{
             textAlign: 'center',
             marginTop: '.25rem',
@@ -101,7 +101,7 @@ class HomePage extends Component {
 
             <Grid centered container>
               <Button
-                size="large"
+                size='large'
                 style={{
                   margin: '2rem 0 1rem 0',
                   backgroundColor: '#09186A',

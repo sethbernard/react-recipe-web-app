@@ -6,14 +6,14 @@ const RecipeSearch = ({ onChange, onSubmit }) => {
     <Grid columns={1}>
       <Grid.Row centered>
         <Grid.Column mobile={12} tablet={8} computer={6}>
-          <Segment padded="very" raised>
+          <Segment padded='very' raised>
             <Form>
               <Form.Field>
                 <label>What do you want to eat?</label>
-                <input placeholder="Ex: Pulled Pork" onChange={onChange} />
+                <input placeholder='Ex: Chicken Parmesan' onChange={onChange} />
               </Form.Field>
               <Button
-                type="submit"
+                type='submit'
                 onClick={onSubmit}
                 style={{ backgroundColor: '#09186A', color: '#fff' }}
               >
